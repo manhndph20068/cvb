@@ -1,6 +1,7 @@
-import { ReduxProviders } from "@/lib/redux.providers";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import "./styles/globals.css";
+import { ReduxProviders } from "../lib/redux.providers";
+import AppHeader from "../components/header/app.header";
 
 export default function RootLayout({
   children,
@@ -11,7 +12,10 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <ReduxProviders>
-          <AntdRegistry>{children}</AntdRegistry>
+          <AntdRegistry>
+            <AppHeader />
+            {children}
+          </AntdRegistry>
         </ReduxProviders>
       </body>
     </html>
