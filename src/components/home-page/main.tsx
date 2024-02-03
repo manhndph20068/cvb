@@ -2,14 +2,24 @@
 import { Row, Col, Layout } from "antd";
 import RecommnendComics from "./recommend.comics";
 import RecentUpdateComics from "./recent.update.comics";
+import TopComponent from "./top/top.component";
 
 interface IProps {
   RecommendComics: any;
   RecentUpdateComicsData: IModelPaginate<ICommics>;
+  DataTopOfMonth: ICommics[];
+  DataTopOfWeek: ICommics[];
+  DataTopOfDaily: ICommics[];
 }
 
 const Main = (props: IProps) => {
-  const { RecommendComics, RecentUpdateComicsData } = props;
+  const {
+    RecommendComics,
+    RecentUpdateComicsData,
+    DataTopOfMonth,
+    DataTopOfWeek,
+    DataTopOfDaily,
+  } = props;
 
   return (
     <Layout>
@@ -27,26 +37,30 @@ const Main = (props: IProps) => {
       </Row>
       <Row gutter={[16, 16]} justify="center">
         <Col
-          xs={{ span: 16 }}
-          sm={{ span: 16 }}
-          md={{ span: 16 }}
+          xs={{ span: 23 }}
+          sm={{ span: 23 }}
+          md={{ span: 23 }}
           lg={{ span: 15 }}
-          xl={{ span: 12 }}
+          xl={{ span: 13 }}
           xxl={{ span: 11 }}
           style={{ border: "1px solid red" }}
         >
           <RecentUpdateComics data={RecentUpdateComicsData} />
         </Col>
         <Col
-          xs={{ span: 7 }}
-          sm={{ span: 7 }}
-          md={{ span: 7 }}
+          xs={{ span: 23 }}
+          sm={{ span: 23 }}
+          md={{ span: 23 }}
           lg={{ span: 7 }}
-          xl={{ span: 7 }}
+          xl={{ span: 6 }}
           xxl={{ span: 6 }}
           style={{ border: "1px solid green" }}
         >
-          top
+          <TopComponent
+            DataTopOfMonth={DataTopOfMonth}
+            DataTopOfWeek={DataTopOfWeek}
+            DataTopOfDaily={DataTopOfDaily}
+          />
         </Col>
       </Row>
     </Layout>

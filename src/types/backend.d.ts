@@ -38,4 +38,24 @@ declare global {
       name: string;
     };
   }
+
+  interface IDetailComic {
+    title: string;
+    thumbnail: string;
+    description: string;
+    authors: string;
+    status: string;
+    genres: {
+      id: string;
+      name: string;
+    }[];
+    total_views: number;
+    followers: number;
+    chapters: {
+      id: number;
+      name: string;
+    }[];
+    id: string;
+    other_names: string[];
+  }
 }

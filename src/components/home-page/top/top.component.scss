@@ -1,0 +1,26 @@
+div#rc-tabs-1-tab-1 {
+  font-size: medium;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+div#rc-tabs-1-tab-2 {
+  font-size: medium;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+div#rc-tabs-1-tab-3 {
+  font-size: medium;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.ant-tabs-nav-wrap {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+span.ant-tabs-tab-icon {
+  margin-top: 9px;
+}

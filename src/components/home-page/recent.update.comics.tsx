@@ -13,7 +13,7 @@ const RecentUpdateComics = (props: IProps) => {
   const { data } = props;
   const [hoveredItemId, setHoveredItemId] = useState<string | null>(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [currentComics, setCurrentComics] = useState<ICommics[]>([]);
+  // const [currentComics, setCurrentComics] = useState<ICommics[]>([]);
   const searchParams = useSearchParams();
   const query = searchParams.get("page");
   const router = useRouter();
@@ -31,7 +31,7 @@ const RecentUpdateComics = (props: IProps) => {
   useEffect(() => {
     const startIndex = (data?.current_page - 1) * comicsPerPage;
     const endIndex = startIndex + comicsPerPage;
-    setCurrentComics(data?.comics.slice(startIndex, endIndex));
+    // setCurrentComics(data?.comics.slice(startIndex, endIndex));
   }, [data?.comics, data?.current_page]);
 
   const comicsPerPage = 36;
@@ -44,7 +44,7 @@ const RecentUpdateComics = (props: IProps) => {
           gutter: [16, 8],
           xs: 2,
           sm: 2,
-          md: 3,
+          md: 4,
           lg: 3,
           xl: 4,
           xxl: 4,
@@ -52,7 +52,7 @@ const RecentUpdateComics = (props: IProps) => {
         dataSource={data?.comics}
         renderItem={(item) => (
           <List.Item>
-            <div key={item.id}>
+            <div key={item?.id}>
               <div
                 style={{
                   position: "relative",
@@ -75,7 +75,7 @@ const RecentUpdateComics = (props: IProps) => {
                     opacity: 1,
                   }}
                 >
-                  {item.updated_at}
+                  {item?.updated_at}
                 </div>
                 <div
                   style={{
@@ -103,21 +103,23 @@ const RecentUpdateComics = (props: IProps) => {
                       <FaRegEye />
                     </span>
                     <span>
-                      {new Intl.NumberFormat("en-US").format(item.total_views)}{" "}
+                      {new Intl.NumberFormat("en-US").format(item?.total_views)}{" "}
                     </span>
                   </div>
                 </div>
-                <Image
-                  src={`${item.thumbnail}`}
-                  alt={item.title}
-                  priority
-                  sizes="100%"
-                  fill
-                  style={{
-                    objectFit: "cover",
-                    borderRadius: "5px",
-                  }}
-                />
+                <Link href={`/truyen-tranh/${item.id}.html`}>
+                  <Image
+                    src={`${item?.thumbnail}`}
+                    alt={item?.title}
+                    priority
+                    sizes="100%"
+                    fill
+                    style={{
+                      objectFit: "cover",
+                      borderRadius: "5px",
+                    }}
+                  />
+                </Link>
               </div>
             </div>
             <Link
@@ -155,7 +157,7 @@ const RecentUpdateComics = (props: IProps) => {
                       position: "fixed", // Để giữ cho popup ở vị trí chuột
                       top: position.y,
                       left: position.x,
-                      transform: "translate(5%, 5%)", // Để popup không bị che khuất bởi chuột
+                      transform: "translate(5%, 2%)", // Để popup không bị che khuất bởi chuột
                       background: "#fff",
                       boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
                       padding: "10px",
