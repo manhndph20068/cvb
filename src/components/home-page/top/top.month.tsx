@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import { FaRegEye } from "react-icons/fa";
@@ -49,8 +50,8 @@ const TopOfMonth = (props: IProps) => {
                     }}
                     priority
                     fill
-                    src={item.thumbnail}
-                    alt={item.title}
+                    src={item?.thumbnail}
+                    alt={item?.title}
                   />
                 </Link>
               </div>
@@ -78,7 +79,7 @@ const TopOfMonth = (props: IProps) => {
                     whiteSpace: "nowrap",
                   }}
                 >
-                  <Link href={"#"}> {item.title}</Link>
+                  <Link href={"#"}> {item?.title}</Link>
                 </div>
               </div>
               <div

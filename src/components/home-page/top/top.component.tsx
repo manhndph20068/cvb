@@ -1,4 +1,4 @@
-import { Layout } from "antd";
+"use client";
 import { Tabs } from "antd";
 import type { TabsProps } from "antd";
 import "./top.component.scss";

@@ -1,3 +1,4 @@
+"use client";
 const AppHeader = () => {
   return (
     <header>
