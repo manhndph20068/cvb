@@ -58,4 +58,18 @@ declare global {
     id: string;
     other_names: string[];
   }
+
+  interface IChapter {
+    images: {
+      page: number;
+      src: string;
+      backup_src: string;
+    }[];
+    chapters: {
+      id: number;
+      name: string;
+    }[];
+    chapter_name: string;
+    comic_name: string;
+  }
 }

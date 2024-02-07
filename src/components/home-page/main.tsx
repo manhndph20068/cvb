@@ -1,5 +1,5 @@
 "use client";
-import { Row, Col, Layout } from "antd";
+import { Row, Col, Layout, FloatButton } from "antd";
 import RecommnendComics from "./recommend.comics";
 import RecentUpdateComics from "./recent.update.comics";
 import TopComponent from "./top/top.component";
@@ -61,6 +61,16 @@ const Main = (props: IProps) => {
             DataTopOfWeek={DataTopOfWeek}
             DataTopOfDaily={DataTopOfDaily}
           />
+        </Col>
+        <Col
+          xs={{ span: 0 }}
+          sm={{ span: 0 }}
+          md={{ span: 0 }}
+          lg={{ span: 0 }}
+          xl={{ span: 19 }}
+          xxl={{ span: 17 }}
+        >
+          <FloatButton.BackTop />
         </Col>
       </Row>
     </Layout>

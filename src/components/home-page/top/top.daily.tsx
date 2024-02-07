@@ -35,15 +35,15 @@ const TopDaily = (props: IProps) => {
               <h1 style={{ fontFamily: "Calibri", width: "35px" }}>
                 0{index + 1}
               </h1>
-              <div
-                style={{
-                  position: "relative",
-                  height: "100%",
-                  width: "75px",
-                  // textAlign: "center",
-                }}
-              >
-                <Link href={"#"}>
+              <Link href={"#"}>
+                <div
+                  style={{
+                    position: "relative",
+                    height: "100%",
+                    width: "75px",
+                    // textAlign: "center",
+                  }}
+                >
                   <Image
                     style={{
                       objectFit: "cover",
@@ -51,11 +51,12 @@ const TopDaily = (props: IProps) => {
                     }}
                     priority
                     fill
+                    sizes="100%"
                     src={item.thumbnail}
                     alt={item.title}
                   />
-                </Link>
-              </div>
+                </div>
+              </Link>
             </div>
             <div
               style={{

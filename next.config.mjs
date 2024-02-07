@@ -13,6 +13,11 @@ const nextConfig = {
         hostname: "cdnntx.com",
         pathname: "/nettruyen/**",
       },
+      {
+        protocol: "https",
+        hostname: "comics-api.vercel.app",
+        pathname: "/images",
+      },
     ],
   },
 };

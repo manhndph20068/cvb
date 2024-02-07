@@ -1,5 +1,5 @@
 "use client";
-import { Tabs } from "antd";
+import { Col, Row, Tabs } from "antd";
 import type { TabsProps } from "antd";
 import "./top.component.scss";
 import { MdOutlineCalendarMonth } from "react-icons/md";
@@ -20,21 +20,18 @@ const TopComponent = (props: IProps) => {
   const items: TabsProps["items"] = [
     {
       key: "1",
-      label: `Top tháng`,
+      label: "Top Tháng",
       children: <TopOfMonth DataTopOfMonth={DataTopOfMonth} />,
-      icon: <MdOutlineCalendarMonth />,
     },
     {
       key: "2",
-      label: "Top tuần",
+      label: "Top Tuần",
       children: <TopOfWeek DataTopOfWeek={DataTopOfWeek} />,
-      icon: <BsCalendar4Week />,
     },
     {
       key: "3",
-      label: "Top ngày",
+      label: "Top Ngày",
       children: <TopDaily DataTopOfDaily={DataTopOfDaily} />,
-      icon: <IoTodayOutline />,
     },
   ];
 

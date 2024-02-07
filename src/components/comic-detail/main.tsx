@@ -1,12 +1,15 @@
+"use client";
 import { Col, Row } from "antd";
 import InforComic from "./infor.comic";
+import { useSelector } from "@/src/lib/redux";
 
 interface IProps {
   DetailInforComic: IDetailComic;
 }
 
-const Main = (props: IProps) => {
+const MainInforComic = (props: IProps) => {
   const { DetailInforComic } = props;
+
   return (
     <div style={{ marginTop: "10px" }}>
       <Row justify="center">
@@ -25,4 +28,4 @@ const Main = (props: IProps) => {
     </div>
   );
 };
-export default Main;
+export default MainInforComic;

@@ -206,7 +206,7 @@ const RecommnendComics = (props: IProps) => {
                     textOverflow: "ellipsis",
                     whiteSpace: "nowrap",
                     textAlign: "center",
-                    marginTop: "5px",
+                    marginTop: "8px",
                     fontSize: "15px",
                   }}
                 >
@@ -228,7 +228,7 @@ const RecommnendComics = (props: IProps) => {
                     textOverflow: "ellipsis",
                     whiteSpace: "nowrap",
                     textAlign: "center",
-                    marginTop: "5px",
+                    marginTop: "7px",
                   }}
                 >
                   {" "}

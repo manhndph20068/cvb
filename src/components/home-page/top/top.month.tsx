@@ -23,8 +23,8 @@ const TopOfMonth = (props: IProps) => {
           >
             <div
               style={{
-                width: "30%",
-                height: "100px",
+                width: "35%",
+                height: "90px",
                 border: "1px solid red",
                 display: "flex",
                 alignItems: "center", // Vertical centering
@@ -58,8 +58,8 @@ const TopOfMonth = (props: IProps) => {
             </div>
             <div
               style={{
-                width: "70%",
-                height: "100px",
+                width: "65%",
+                height: "90px",
                 border: "1px solid blue",
               }}
             >
@@ -71,9 +71,8 @@ const TopOfMonth = (props: IProps) => {
               >
                 <div
                   style={{
-                    fontSize: "16px",
+                    fontSize: "15px",
                     fontWeight: "bold",
-
                     overflow: "hidden",
                     textOverflow: "ellipsis",
                     whiteSpace: "nowrap",
@@ -94,16 +93,15 @@ const TopOfMonth = (props: IProps) => {
               >
                 <div
                   style={{
-                    fontSize: "16px",
-                    fontWeight: "bold",
+                    fontSize: "15px",
                   }}
                 >
                   <Link href={"#"}>{item?.last_chapter?.name}</Link>
                 </div>
                 <div
                   style={{
-                    fontSize: "16px",
-                    fontWeight: "bold",
+                    fontSize: "15px",
+
                     display: "flex",
                     alignItems: "center",
                     gap: 5,

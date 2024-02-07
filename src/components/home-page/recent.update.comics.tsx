@@ -37,13 +37,13 @@ const RecentUpdateComics = (props: IProps) => {
   const comicsPerPage = 36;
 
   return (
-    <div style={{ paddingLeft: "10px" }}>
+    <div style={{ paddingLeft: "11px" }}>
       <h4>RecentUpdateComics</h4>
       <List
         grid={{
-          gutter: [16, 8],
+          gutter: [20, 16],
           xs: 2,
-          sm: 2,
+          sm: 3,
           md: 4,
           lg: 3,
           xl: 4,
@@ -53,74 +53,79 @@ const RecentUpdateComics = (props: IProps) => {
         renderItem={(item) => (
           <List.Item>
             <div key={item?.id}>
-              <div
-                style={{
-                  position: "relative",
-                  height: "205px",
-                  width: "170px",
-                  textAlign: "center",
-                }}
-              >
+              <Link href={`/truyen-tranh/${item.id}`}>
                 <div
                   style={{
-                    position: "absolute",
-                    top: 4,
-                    left: 5,
-                    background: "#56ccf2", // Màu nền của tag
-                    color: "#fff", // Màu chữ của tag
-                    padding: "2px 6px", // Kích thước padding của tag
-                    borderRadius: " 5px ", // Độ cong của góc tag
-                    zIndex: 1,
-                    fontSize: "12px",
-                    opacity: 1,
-                  }}
-                >
-                  {item?.updated_at}
-                </div>
-                <div
-                  style={{
-                    position: "absolute",
-                    bottom: 4,
-                    left: 5,
-                    background: "#56585A",
-                    color: "#fff",
-                    padding: "2px 6px",
-                    borderRadius: " 5px ",
-                    zIndex: 1,
-                    fontSize: "12px",
-                    opacity: 0.9,
+                    position: "relative",
+                    height: "205px",
+                    width: "170px",
+                    textAlign: "center",
                   }}
                 >
                   <div
                     style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      gap: 5,
+                      position: "absolute",
+                      top: 4,
+                      left: 5,
+                      background: "#56ccf2", // Màu nền của tag
+                      color: "#fff", // Màu chữ của tag
+                      padding: "2px 6px", // Kích thước padding của tag
+                      borderRadius: " 5px ", // Độ cong của góc tag
+                      zIndex: 1,
+                      fontSize: "12px",
+                      opacity: 1,
                     }}
                   >
-                    <span style={{ marginTop: 2 }}>
-                      <FaRegEye />
-                    </span>
-                    <span>
-                      {new Intl.NumberFormat("en-US").format(item?.total_views)}{" "}
-                    </span>
+                    {item?.updated_at}
                   </div>
-                </div>
-                <Link href={`/truyen-tranh/${item.id}.html`}>
+                  <div
+                    style={{
+                      position: "absolute",
+                      bottom: 4,
+                      left: 5,
+                      background: "#56585A",
+                      color: "#fff",
+                      padding: "2px 6px",
+                      borderRadius: " 5px ",
+                      zIndex: 1,
+                      fontSize: "12px",
+                      opacity: 0.9,
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        gap: 5,
+                      }}
+                    >
+                      <span style={{ marginTop: 2 }}>
+                        <FaRegEye />
+                      </span>
+                      <span>
+                        {new Intl.NumberFormat("en-US").format(
+                          item?.total_views
+                        )}{" "}
+                      </span>
+                    </div>
+                  </div>
+
                   <Image
                     src={`${item?.thumbnail}`}
                     alt={item?.title}
                     priority
                     sizes="100%"
-                    fill
+                    // fill
+                    height={205}
+                    width={170}
                     style={{
                       objectFit: "cover",
                       borderRadius: "5px",
                     }}
                   />
-                </Link>
-              </div>
+                </div>
+              </Link>
             </div>
             <Link
               // href={`/track/${convertSlugUrl(item.title)}-${
