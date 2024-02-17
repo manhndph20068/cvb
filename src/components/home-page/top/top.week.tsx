@@ -14,6 +14,7 @@ const TopOfWeek = (props: IProps) => {
       {DataTopOfWeek?.map((item, index) => {
         return (
           <div
+            key={item.id}
             style={{
               border: "1px solid black",
               padding: "5px",

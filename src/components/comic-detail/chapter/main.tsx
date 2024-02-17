@@ -2,18 +2,31 @@
 import { Col, FloatButton, Row } from "antd";
 import Title from "./title";
 import Content from "./content";
+import { useSelector } from "@/src/lib/redux";
+import { doAddAction } from "@/src/lib/redux/slices/visitedComicsSlice/visitedComicsSlice";
+import { useDispatch } from "react-redux";
 
 interface IProps {
   ChapterComic: IChapter;
   comicId: string;
   chapterId: number;
+  DetailInforComic: IDetailComic;
 }
 
 const MainChapterOfComic = (props: IProps) => {
-  const { ChapterComic, comicId, chapterId } = props;
-
+  const { ChapterComic, comicId, chapterId, DetailInforComic } = props;
+  const dispatch = useDispatch();
   if (ChapterComic?.chapter_name) {
     console.log("add", ChapterComic?.chapter_name);
+    dispatch(
+      doAddAction({
+        id: comicId,
+        chapterIds: chapterId,
+        chapterName: ChapterComic?.chapter_name,
+        image: DetailInforComic?.thumbnail,
+        name: DetailInforComic?.title,
+      })
+    );
   }
 
   return (

@@ -1,5 +1,11 @@
 "use client";
-import { HomeOutlined, LeftOutlined, RightOutlined } from "@ant-design/icons";
+import {
+  HomeOutlined,
+  HomeTwoTone,
+  LeftOutlined,
+  ProfileTwoTone,
+  RightOutlined,
+} from "@ant-design/icons";
 import { Affix, Breadcrumb, Button, Flex, Select } from "antd";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -167,6 +173,16 @@ const Title = (props: IProps) => {
           >
             <Flex gap="small" wrap="wrap">
               <Button
+                style={{
+                  backgroundColor: "tranparent",
+                }}
+                onClick={() => {
+                  router.push(`/`);
+                }}
+                icon={<HomeTwoTone />}
+              />
+
+              <Button
                 type={prevButton ? "primary" : "default"}
                 icon={<LeftOutlined />}
                 disabled={!prevButton}
@@ -195,6 +211,15 @@ const Title = (props: IProps) => {
                 onClick={
                   nextButton ? () => handleNextChapter() : () => alert("đã hết")
                 }
+              />
+              <Button
+                style={{
+                  backgroundColor: "tranparent",
+                }}
+                onClick={() => {
+                  router.push(`/truyen-tranh/${comicId}`);
+                }}
+                icon={<ProfileTwoTone />}
               />
             </Flex>
           </div>

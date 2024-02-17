@@ -24,6 +24,8 @@ import {
 } from "@ant-design/icons";
 import { Content } from "antd/es/layout/layout";
 import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useSelector } from "@/src/lib/redux";
 
 interface IProps {
   DetailInforComic: IDetailComic;
@@ -39,316 +41,32 @@ const paragraphStyle: React.CSSProperties = {
 
 const InforComic = (props: IProps) => {
   const { DetailInforComic } = props;
-
   const [isOpen, setIsOpen] = useState(false);
   const [showReadMoreButton, setShowReadMoreButton] = useState(false);
-
+  const visitedChapter = useSelector(
+    (state) => state.visitedComics.visitedComics
+  );
+  const router = useRouter();
   const ref = useRef<HTMLDivElement>(null);
-
-  const data = [
-    {
-      id: 36,
-      name: "Chương 36",
-    },
-    {
-      id: 35,
-      name: "Chương 35",
-    },
-    {
-      id: 34,
-      name: "Chương 34",
-    },
-    {
-      id: 33,
-      name: "Chương 33",
-    },
-    {
-      id: 32,
-      name: "Chương 32",
-    },
-    {
-      id: 31,
-      name: "Chương 31",
-    },
-    {
-      id: 30,
-      name: "Chương 30",
-    },
-    {
-      id: 29,
-      name: "Chương 29",
-    },
-    {
-      id: 28,
-      name: "Chapter 28",
-    },
-    {
-      id: 27,
-      name: "Chương 27",
-    },
-    {
-      id: 26,
-      name: "Chapter 26",
-    },
-    {
-      id: 25,
-      name: "Chapter 25",
-    },
-    {
-      id: 24,
-      name: "Chapter 24",
-    },
-    {
-      id: 23,
-      name: "Chương 23",
-    },
-    {
-      id: 22,
-      name: "Chương 22",
-    },
-    {
-      id: 21,
-      name: "Chapter 21",
-    },
-    {
-      id: 20,
-      name: "Chapter 20",
-    },
-    {
-      id: 19,
-      name: "Chương 19",
-    },
-    {
-      id: 18,
-      name: "Chương 18",
-    },
-    {
-      id: 17,
-      name: "Chapter 17",
-    },
-    {
-      id: 16,
-      name: "Chapter 16",
-    },
-    {
-      id: 15,
-      name: "Chương 15",
-    },
-    {
-      id: 14,
-      name: "Chương 14",
-    },
-    {
-      id: 13,
-      name: "Chương 13",
-    },
-    {
-      id: 12,
-      name: "Chapter 12",
-    },
-    {
-      id: 11,
-      name: "Chapter 11",
-    },
-    {
-      id: 10,
-      name: "Chương 10",
-    },
-    {
-      id: 9,
-      name: "Chương 9",
-    },
-    {
-      id: 8,
-      name: "Chương 8",
-    },
-    {
-      id: 7,
-      name: "Chương 7",
-    },
-    {
-      id: 6,
-      name: "Chương 6",
-    },
-    {
-      id: 5,
-      name: "Chương 5",
-    },
-    {
-      id: 4,
-      name: "Chương 4",
-    },
-    {
-      id: 3,
-      name: "Chapter 3",
-    },
-    {
-      id: 2,
-      name: "Chapter 2",
-    },
-    {
-      id: 1,
-      name: "Chapter 1",
-    },
-    {
-      id: 36,
-      name: "Chương 36",
-    },
-    {
-      id: 35,
-      name: "Chương 35",
-    },
-    {
-      id: 34,
-      name: "Chương 34",
-    },
-    {
-      id: 33,
-      name: "Chương 33",
-    },
-    {
-      id: 32,
-      name: "Chương 32",
-    },
-    {
-      id: 31,
-      name: "Chương 31",
-    },
-    {
-      id: 30,
-      name: "Chương 30",
-    },
-    {
-      id: 29,
-      name: "Chương 29",
-    },
-    {
-      id: 28,
-      name: "Chapter 28",
-    },
-    {
-      id: 27,
-      name: "Chương 27",
-    },
-    {
-      id: 26,
-      name: "Chapter 26",
-    },
-    {
-      id: 25,
-      name: "Chapter 25",
-    },
-    {
-      id: 24,
-      name: "Chapter 24",
-    },
-    {
-      id: 23,
-      name: "Chương 23",
-    },
-    {
-      id: 22,
-      name: "Chương 22",
-    },
-    {
-      id: 21,
-      name: "Chapter 21",
-    },
-    {
-      id: 20,
-      name: "Chapter 20",
-    },
-    {
-      id: 19,
-      name: "Chương 19",
-    },
-    {
-      id: 18,
-      name: "Chương 18",
-    },
-    {
-      id: 17,
-      name: "Chapter 17",
-    },
-    {
-      id: 16,
-      name: "Chapter 16",
-    },
-    {
-      id: 15,
-      name: "Chương 15",
-    },
-    {
-      id: 14,
-      name: "Chương 14",
-    },
-    {
-      id: 13,
-      name: "Chương 13",
-    },
-    {
-      id: 12,
-      name: "Chapter 12",
-    },
-    {
-      id: 11,
-      name: "Chapter 11",
-    },
-    {
-      id: 10,
-      name: "Chương 10",
-    },
-    {
-      id: 9,
-      name: "Chương 9",
-    },
-    {
-      id: 8,
-      name: "Chương 8",
-    },
-    {
-      id: 7,
-      name: "Chương 7",
-    },
-    {
-      id: 6,
-      name: "Chương 6",
-    },
-    {
-      id: 5,
-      name: "Chương 5",
-    },
-    {
-      id: 4,
-      name: "Chương 4",
-    },
-    {
-      id: 3,
-      name: "Chapter 3",
-    },
-    {
-      id: 2,
-      name: "Chapter 2",
-    },
-    {
-      id: 1,
-      name: "Chapter 1",
-    },
-  ];
 
   useEffect(() => {
     if (ref.current) {
       const { clientHeight, scrollHeight } = ref.current;
-      console.log(clientHeight, scrollHeight);
       setShowReadMoreButton(scrollHeight !== clientHeight);
     }
   }, []);
+
+  console.log("visitedChapter", visitedChapter);
+  const visitedChapterIds = visitedChapter.find(
+    (item) => item.id === DetailInforComic?.id
+  );
+  console.log("visitedChapterIds", visitedChapterIds?.chapterIds);
 
   return (
     <Layout>
       <Row>
         <Col span={24}>
-          <div className="breadcrumb">
+          <div className="breadcrumb" style={{ padding: "5px" }}>
             <Breadcrumb
               style={{ fontSize: "16px" }}
               items={[
@@ -657,18 +375,15 @@ const InforComic = (props: IProps) => {
                   style={{
                     background: "green",
                   }}
+                  onClick={() => {
+                    router.push(
+                      `/truyen-tranh/${DetailInforComic?.id}/${+DetailInforComic
+                        ?.chapters[DetailInforComic?.chapters.length - 1].id}`
+                    );
+                  }}
                 >
                   Đọc từ đầu
                 </Button>
-                {/* <Button
-                type="primary"
-                size="large"
-                style={{
-                  background: "purple",
-                }}
-              >
-                Đọc mới nhất
-              </Button> */}
                 <Button danger icon={<HeartOutlined />} size="large">
                   Theo dõi
                 </Button>
@@ -726,16 +441,22 @@ const InforComic = (props: IProps) => {
               <List
                 dataSource={DetailInforComic?.chapters}
                 renderItem={(item) => (
-                  console.log(DetailInforComic),
-                  (
-                    <List.Item key={item.id}>
-                      <Link
-                        href={`/truyen-tranh/${DetailInforComic?.id}/${item?.id}`}
+                  <List.Item key={item.id}>
+                    <Link
+                      href={`/truyen-tranh/${DetailInforComic?.id}/${item?.id}`}
+                    >
+                      <div
+                        style={{
+                          fontSize: "15px",
+                          color: visitedChapterIds?.chapterIds.includes(item.id)
+                            ? "#0000FF"
+                            : "inherit",
+                        }}
                       >
-                        <div style={{ fontSize: "15px" }}>{item.name}</div>
-                      </Link>
-                    </List.Item>
-                  )
+                        {item.name}
+                      </div>
+                    </Link>
+                  </List.Item>
                 )}
               />
             </InfiniteScroll>

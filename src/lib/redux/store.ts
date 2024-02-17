@@ -12,6 +12,7 @@ import {
 } from "react-redux";
 
 import counterReducer from "../redux/slices/counterSlice/counterSlice";
+import visitedComicsReducer from "../redux/slices/visitedComicsSlice/visitedComicsSlice";
 import {
   persistStore,
   persistReducer,
@@ -50,7 +51,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   counter: counterReducer,
-  // account: accountReducer,
+  visitedComics: visitedComicsReducer,
   // order: orderReducer,
 });
 

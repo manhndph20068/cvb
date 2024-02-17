@@ -72,4 +72,10 @@ declare global {
     chapter_name: string;
     comic_name: string;
   }
+
+  interface IGenre {
+    id: string;
+    name: string;
+    description: string;
+  }
 }

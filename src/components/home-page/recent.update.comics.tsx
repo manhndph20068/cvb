@@ -37,11 +37,10 @@ const RecentUpdateComics = (props: IProps) => {
   const comicsPerPage = 36;
 
   return (
-    <div style={{ paddingLeft: "11px" }}>
+    <div style={{ paddingLeft: "" }}>
       <h4>RecentUpdateComics</h4>
       <List
         grid={{
-          gutter: [20, 16],
           xs: 2,
           sm: 3,
           md: 4,
@@ -52,7 +51,10 @@ const RecentUpdateComics = (props: IProps) => {
         dataSource={data?.comics}
         renderItem={(item) => (
           <List.Item>
-            <div key={item?.id}>
+            <div
+              key={item?.id}
+              style={{ display: "flex", justifyContent: "center" }}
+            >
               <Link href={`/truyen-tranh/${item.id}`}>
                 <div
                   style={{
@@ -133,6 +135,7 @@ const RecentUpdateComics = (props: IProps) => {
               // }.html?audio=${item.trackUrl}`}
 
               href={`#`}
+              style={{ display: "flex", justifyContent: "center" }}
             >
               <div
                 key={item.id}
@@ -223,6 +226,7 @@ const RecentUpdateComics = (props: IProps) => {
               // }.html?audio=${item.trackUrl}`}
 
               href={`#`}
+              style={{ display: "flex", justifyContent: "center" }}
             >
               <div
                 key={item.id}

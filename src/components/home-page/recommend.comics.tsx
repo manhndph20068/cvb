@@ -65,8 +65,8 @@ const RecommnendComics = (props: IProps) => {
   const settings: Settings = {
     dots: false,
     infinite: true,
-    speed: 3000,
-    slidesToShow: 7,
+    speed: 1000,
+    slidesToShow: 6,
     slidesToScroll: 1,
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
@@ -77,7 +77,7 @@ const RecommnendComics = (props: IProps) => {
       {
         breakpoint: 1950,
         settings: {
-          slidesToShow: 7,
+          slidesToShow: 6,
           slidesToScroll: 1,
           speed: 1000,
           infinite: true,

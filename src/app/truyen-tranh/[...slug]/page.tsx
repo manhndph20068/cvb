@@ -90,6 +90,7 @@ const ComicPage = async (props: any) => {
           chapterId={chapter_id}
           comicId={comic_id}
           ChapterComic={ChapterComic}
+          DetailInforComic={DetailInforComic}
         />
       </div>
     );
