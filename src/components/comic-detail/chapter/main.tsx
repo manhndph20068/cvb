@@ -16,13 +16,16 @@ interface IProps {
 const MainChapterOfComic = (props: IProps) => {
   const { ChapterComic, comicId, chapterId, DetailInforComic } = props;
   const dispatch = useDispatch();
-  if (ChapterComic?.chapter_name) {
+
+  if (ChapterComic?.chapter_name || ChapterComic?.chapters?.length > 0) {
     console.log("add", ChapterComic?.chapter_name);
     dispatch(
       doAddAction({
         id: comicId,
         chapterIds: chapterId,
-        chapterName: ChapterComic?.chapter_name,
+        chapterName: ChapterComic?.chapter_name
+          ? ChapterComic?.chapter_name
+          : chapterId.toString(),
         image: DetailInforComic?.thumbnail,
         name: DetailInforComic?.title,
       })

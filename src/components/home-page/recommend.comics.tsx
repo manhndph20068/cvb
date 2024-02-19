@@ -142,6 +142,9 @@ const RecommnendComics = (props: IProps) => {
 
   return (
     <div style={{ maxWidth: "100%" }}>
+      <div>
+        <h2 className="title-comic">Truyện Đề Cử</h2>
+      </div>
       <Slider {...settings}>
         {props.RecommendComics?.map((item: any) => {
           return (

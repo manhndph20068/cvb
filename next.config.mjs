@@ -20,6 +20,9 @@ const nextConfig = {
       },
     ],
   },
+  env: {
+    API_URL: process.env.COMICS_API_URL,
+  },
 };
 
 export default nextConfig;

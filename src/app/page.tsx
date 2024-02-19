@@ -14,8 +14,6 @@ export default async function IndexPage({
   params: { slug: string };
   searchParams?: { [key: string]: string | string[] | undefined };
 }) {
-  console.log("params", params);
-  console.log("searchParams", searchParams);
   const RecommendComics = await sendRequest({
     url: `${process.env.COMICS_API_URL}/recommend-comics`,
     method: "GET",
@@ -26,7 +24,6 @@ export default async function IndexPage({
     url: `${process.env.COMICS_API_URL}/recent-update-comics`,
     method: "GET",
     nextOption: { revalidate: revalidate },
-    // nextOption: { cache: "no-store" },
     queryParams: { page: searchParams?.page || 1 },
   });
 
@@ -58,7 +55,6 @@ export default async function IndexPage({
   });
 
   // console.log("DataTopOfMonth", RecentUpdateComicsData);
-
   return (
     <Main
       RecommendComics={RecommendComics}

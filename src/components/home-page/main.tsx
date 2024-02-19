@@ -22,7 +22,7 @@ const Main = (props: IProps) => {
   } = props;
 
   return (
-    <Layout>
+    <Layout style={{ marginTop: "15px", backgroundColor: "white" }}>
       <Row gutter={[0, 15]} justify="center">
         <Col
           xs={{ span: 23 }}

@@ -42,7 +42,7 @@ const AppHeader = (props: IProps) => {
           </Col>
         </Row>
       )}
-      <Row justify="center">
+      <Row justify="center" className="header-bar">
         <Col
           xs={{ span: 23 }}
           sm={{ span: 23 }}
@@ -51,7 +51,6 @@ const AppHeader = (props: IProps) => {
           xl={{ span: 19 }}
           xxl={{ span: 17 }}
           style={{
-            border: "1px solid black",
             height: "70px",
           }}
         >
@@ -65,7 +64,6 @@ const AppHeader = (props: IProps) => {
               sm={14}
               xs={14}
               style={{
-                border: "1px solid black",
                 display: "flex",
                 alignItems: "center",
               }}

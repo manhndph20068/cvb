@@ -56,7 +56,6 @@ const InforComic = (props: IProps) => {
     }
   }, []);
 
-  console.log("visitedChapter", visitedChapter);
   const visitedChapterIds = visitedChapter.find(
     (item) => item.id === DetailInforComic?.id
   );
@@ -90,6 +89,7 @@ const InforComic = (props: IProps) => {
             />
           </div>
         </Col>
+
         <Col
           xs={{ span: 24 }}
           sm={{ span: 24 }}
@@ -122,6 +122,7 @@ const InforComic = (props: IProps) => {
             />
           </div>
         </Col>
+        {/* <div style={{ height: "100%" }}> */}
         <Col
           xs={{ span: 24 }}
           sm={{ span: 24 }}
@@ -133,18 +134,19 @@ const InforComic = (props: IProps) => {
             display: "flex",
             justifyContent: "start",
             padding: "15px 15px",
+            height: "100%",
+            border: "1px solid green",
           }}
         >
           <div
             style={{
-              // minHeight: "360px",
-              minHeight: "320px",
+              height: "100%",
               width: "100%",
             }}
           >
             <div
               style={{
-                minHeight: "12.5%",
+                padding: "5px 0",
                 fontSize: "24px",
                 fontWeight: "bold",
               }}
@@ -161,7 +163,7 @@ const InforComic = (props: IProps) => {
             >
               <Row
                 style={{
-                  marginTop: "auto",
+                  padding: "3px 0",
                 }}
               >
                 <Col
@@ -193,7 +195,6 @@ const InforComic = (props: IProps) => {
             </div>
             <div
               style={{
-                minHeight: "9.5%",
                 display: "flex",
                 flexDirection: "column",
                 fontSize: "17px",
@@ -201,7 +202,7 @@ const InforComic = (props: IProps) => {
             >
               <Row
                 style={{
-                  marginTop: "auto",
+                  padding: "3px 0",
                 }}
               >
                 <Col
@@ -231,7 +232,6 @@ const InforComic = (props: IProps) => {
             </div>
             <div
               style={{
-                minHeight: "9.5%",
                 display: "flex",
                 flexDirection: "column",
                 fontSize: "17px",
@@ -239,7 +239,7 @@ const InforComic = (props: IProps) => {
             >
               <Row
                 style={{
-                  marginTop: "auto",
+                  padding: "3px 0",
                 }}
               >
                 <Col
@@ -269,7 +269,6 @@ const InforComic = (props: IProps) => {
             </div>
             <div
               style={{
-                minHeight: "9.5%",
                 display: "flex",
                 flexDirection: "column",
                 fontSize: "17px",
@@ -277,7 +276,7 @@ const InforComic = (props: IProps) => {
             >
               <Row
                 style={{
-                  marginTop: "auto",
+                  padding: "3px 0",
                 }}
               >
                 <Col
@@ -307,7 +306,6 @@ const InforComic = (props: IProps) => {
             </div>
             <div
               style={{
-                minHeight: "9.5%",
                 display: "flex",
                 flexDirection: "column",
                 fontSize: "17px",
@@ -315,7 +313,7 @@ const InforComic = (props: IProps) => {
             >
               <Row
                 style={{
-                  marginTop: "auto",
+                  padding: "3px 0",
                 }}
               >
                 <Col
@@ -345,15 +343,15 @@ const InforComic = (props: IProps) => {
             </div>
             <div
               style={{
-                minHeight: "19%",
                 display: "flex",
                 alignItems: "center",
+                padding: "10px 0",
               }}
             >
-              <Space size={[5, 5]} wrap>
+              <Space size={[7, 7]} wrap>
                 {DetailInforComic?.genres.map((genre) => {
                   return (
-                    <Link href={"#"}>
+                    <Link href={`/genre/${genre?.id}`}>
                       <Tag color="processing" style={{ fontSize: "15px" }}>
                         {genre?.name}
                       </Tag>
@@ -364,7 +362,6 @@ const InforComic = (props: IProps) => {
             </div>
             <div
               style={{
-                minHeight: "10%",
                 display: "flex",
               }}
             >
@@ -391,9 +388,10 @@ const InforComic = (props: IProps) => {
             </div>
           </div>
         </Col>
+        {/* </div> */}
       </Row>
       <Row>
-        <Col span={24} style={{ border: "1px solid red" }}>
+        <Col span={24} style={{ border: "1px solid red", marginTop: "10px" }}>
           <Content style={{ padding: "0 2%" }}>
             <div>
               <div
@@ -420,11 +418,18 @@ const InforComic = (props: IProps) => {
         </Col>
       </Row>
       <Row>
-        <Col span={24} style={{ border: "1px solid orange", padding: "1% 1%" }}>
+        <Col
+          span={24}
+          style={{
+            border: "1px solid orange",
+            padding: "1% 1%",
+            marginTop: "10px",
+          }}
+        >
           <div
             id="scrollableDiv"
             style={{
-              maxHeight: 450,
+              maxHeight: 550,
               overflow: "auto",
               padding: "0 16px",
               border: "1px solid rgba(140, 140, 140, 0.35)",
@@ -441,7 +446,7 @@ const InforComic = (props: IProps) => {
               <List
                 dataSource={DetailInforComic?.chapters}
                 renderItem={(item) => (
-                  <List.Item key={item.id}>
+                  <List.Item key={item?.id}>
                     <Link
                       href={`/truyen-tranh/${DetailInforComic?.id}/${item?.id}`}
                     >
@@ -453,7 +458,7 @@ const InforComic = (props: IProps) => {
                             : "inherit",
                         }}
                       >
-                        {item.name}
+                        {item?.name ? item?.name : item?.id}
                       </div>
                     </Link>
                   </List.Item>

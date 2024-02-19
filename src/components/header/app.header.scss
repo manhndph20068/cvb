@@ -1,13 +1,30 @@
-.center-content {
-  border: 1px solid #000;
-  height: 100%;
+.header-bar {
   display: flex;
-  justify-content: space-around;
-  list-style-type: none;
-  align-items: center;
-}
-.right-content {
-  height: 100%;
-  display: flex;
-  align-items: center;
+  background: rgb(251, 251, 251);
+  background: linear-gradient(
+    167deg,
+    rgba(251, 251, 251, 1) 0%,
+    rgba(145, 210, 230, 1) 0%,
+    rgba(189, 233, 231, 1) 59%
+  );
+
+  .center-content {
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+    list-style-type: none;
+    align-items: center;
+    .menu {
+      cursor: pointer;
+      font-size: 17px;
+      &:hover {
+        color: #8e5d4f;
+      }
+    }
+  }
+  .right-content {
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
 }

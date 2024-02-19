@@ -12,6 +12,7 @@ interface IProps {
 const MenuHeader = (props: IProps) => {
   const { resGenres } = props;
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
+  const [isPopoverVisible, setIsPopoverVisible] = useState<boolean>(false);
 
   const handleMouseEnter = (item: IGenre) => {
     setHoveredItem(item.description);
@@ -35,6 +36,7 @@ const MenuHeader = (props: IProps) => {
               href={`/genre/${item.id}`}
               onMouseEnter={() => handleMouseEnter(item)}
               onMouseLeave={handleMouseLeave}
+              onClick={() => setIsPopoverVisible(false)}
             >
               {item.name}
             </Link>
@@ -53,8 +55,10 @@ const MenuHeader = (props: IProps) => {
           height: "auto",
         }}
         content={ListGenres}
+        open={isPopoverVisible}
+        onOpenChange={(setVisible) => setIsPopoverVisible(setVisible)}
       >
-        <div style={{ cursor: "pointer" }}>Thể loại</div>
+        <div className="menu">Thể Loại</div>
       </Popover>
     </div>
   );

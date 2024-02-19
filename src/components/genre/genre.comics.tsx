@@ -2,18 +2,20 @@
 import { List, Pagination, Space, Tag } from "antd";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FaRegEye } from "react-icons/fa";
 interface IProps {
-  data: IModelPaginate<ICommics>;
+  DetailInforComic: IModelPaginate<ICommics>;
+  infoGenre: IGenre;
 }
 
-const RecentUpdateComics = (props: IProps) => {
-  const { data } = props;
+const GenreComics = (props: IProps) => {
+  const { DetailInforComic, infoGenre } = props;
   const [hoveredItemId, setHoveredItemId] = useState<string | null>(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const searchParams = useSearchParams();
+  const pathname = usePathname();
   const query = searchParams.get("page");
   const router = useRouter();
 
@@ -27,28 +29,25 @@ const RecentUpdateComics = (props: IProps) => {
     if (status === "All") return "Tất cả";
   };
 
-  useEffect(() => {
-    const startIndex = (data?.current_page - 1) * comicsPerPage;
-    const endIndex = startIndex + comicsPerPage;
-  }, [data?.comics, data?.current_page]);
-
   const comicsPerPage = 36;
 
   return (
-    <div style={{ paddingLeft: "" }}>
-      <div>
-        <h2 className="title-comic">Truyện Mới Cập Nhật</h2>
+    <div>
+      <div style={{ margin: "25px 0" }}>
+        <h2>{infoGenre.name}</h2>
+        <p style={{ fontSize: "16px" }}>{infoGenre.description}</p>
       </div>
+
       <List
         grid={{
           xs: 2,
           sm: 3,
           md: 4,
-          lg: 3,
-          xl: 4,
-          xxl: 4,
+          lg: 4,
+          xl: 5,
+          xxl: 6,
         }}
-        dataSource={data?.comics}
+        dataSource={DetailInforComic?.comics}
         renderItem={(item) => (
           <List.Item>
             <div
@@ -257,15 +256,15 @@ const RecentUpdateComics = (props: IProps) => {
       >
         <Pagination
           defaultCurrent={query ? parseInt(query) : 1}
-          total={data?.total_pages * comicsPerPage}
+          total={DetailInforComic?.total_pages * comicsPerPage}
           showSizeChanger={false}
           pageSize={comicsPerPage}
           onChange={(e) => {
-            router.push(`/?page=${e}`);
+            router.push(`${pathname}?page=${e}`);
           }}
         />
       </div>
     </div>
   );
 };
-export default RecentUpdateComics;
+export default GenreComics;
