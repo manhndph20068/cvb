@@ -22,7 +22,7 @@ const Content = (props: IProps) => {
               style={{ width: "100%", height: "auto", margin: 0, padding: 0 }}
               width={0}
               height={0}
-              loading="lazy"
+              // loading="lazy"
               sizes="100vw"
               src={item.src}
               alt={item.src}

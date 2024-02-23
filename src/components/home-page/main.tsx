@@ -3,6 +3,8 @@ import { Row, Col, Layout, FloatButton } from "antd";
 import RecommnendComics from "./recommend.comics";
 import RecentUpdateComics from "./recent.update.comics";
 import TopComponent from "./top/top.component";
+import VisitedComponent from "./visited/visited.component";
+import { useSelector } from "@/src/lib/redux";
 
 interface IProps {
   RecommendComics: any;
@@ -20,6 +22,8 @@ const Main = (props: IProps) => {
     DataTopOfWeek,
     DataTopOfDaily,
   } = props;
+
+  const listComicsVisited = useSelector((state) => state.visitedComics);
 
   return (
     <Layout style={{ marginTop: "15px", backgroundColor: "white" }}>
@@ -56,6 +60,10 @@ const Main = (props: IProps) => {
           xxl={{ span: 6 }}
           style={{ border: "1px solid green" }}
         >
+          {listComicsVisited && listComicsVisited.comics.length > 0 && (
+            <VisitedComponent listComicsVisited={listComicsVisited} />
+          )}
+
           <TopComponent
             DataTopOfMonth={DataTopOfMonth}
             DataTopOfWeek={DataTopOfWeek}

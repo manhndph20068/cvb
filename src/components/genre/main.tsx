@@ -10,7 +10,7 @@ const Main = (props: IProps) => {
   const { DetailInforComic, infoGenre } = props;
 
   return (
-    <div>
+    <>
       <Row gutter={[0, 15]} justify="center">
         <Col
           xs={{ span: 23 }}
@@ -26,7 +26,7 @@ const Main = (props: IProps) => {
           />
         </Col>
       </Row>
-    </div>
+    </>
   );
 };
 export default Main;

@@ -1,7 +1,10 @@
 import { Metadata } from "next";
-import { sendRequest } from "../utils/api";
-import Main from "../components/home-page/main";
-export const revalidate = 18;
+import { sendRequest } from "../../utils/api";
+import Main from "../../components/home-page/main";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/src/utils/authOptions";
+
+export const revalidate = 900;
 export const metadata: Metadata = {
   title: "Đọc truyện tranh online",
   description: "homepage",
@@ -14,6 +17,8 @@ export default async function IndexPage({
   params: { slug: string };
   searchParams?: { [key: string]: string | string[] | undefined };
 }) {
+  const session = await getServerSession(authOptions);
+
   const RecommendComics = await sendRequest({
     url: `${process.env.COMICS_API_URL}/recommend-comics`,
     method: "GET",
@@ -25,12 +30,6 @@ export default async function IndexPage({
     method: "GET",
     nextOption: { revalidate: revalidate },
     queryParams: { page: searchParams?.page || 1 },
-  });
-
-  const hhh = await sendRequest({
-    url: `http://worldtimeapi.org/api/timezone/Asia/Bangkok`,
-    method: "GET",
-    nextOption: { revalidate: revalidate },
   });
 
   const DataTopOfMonth = await sendRequest<IModelPaginate<ICommics>>({

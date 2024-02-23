@@ -41,7 +41,13 @@ const TopComponent = (props: IProps) => {
 
   return (
     <>
-      <div style={{ display: "flex", justifyContent: "center" }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          border: "1px solid red",
+        }}
+      >
         <Tabs
           style={{ width: "100%" }}
           defaultActiveKey="1"

@@ -43,9 +43,7 @@ const InforComic = (props: IProps) => {
   const { DetailInforComic } = props;
   const [isOpen, setIsOpen] = useState(false);
   const [showReadMoreButton, setShowReadMoreButton] = useState(false);
-  const visitedChapter = useSelector(
-    (state) => state.visitedComics.visitedComics
-  );
+  const visitedChapter = useSelector((state) => state.visitedComics.comics);
   const router = useRouter();
   const ref = useRef<HTMLDivElement>(null);
 
@@ -56,8 +54,8 @@ const InforComic = (props: IProps) => {
     }
   }, []);
 
-  const visitedChapterIds = visitedChapter.find(
-    (item) => item.id === DetailInforComic?.id
+  const visitedChapterIds = visitedChapter?.find(
+    (item: any) => item.id === DetailInforComic?.id
   );
   console.log("visitedChapterIds", visitedChapterIds?.chapterIds);
 

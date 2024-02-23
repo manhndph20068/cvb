@@ -1,5 +1,6 @@
 "use client";
-import { List, Pagination, Space, Tag } from "antd";
+import { HomeOutlined } from "@ant-design/icons";
+import { Breadcrumb, List, Pagination, Space, Tag } from "antd";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
@@ -34,6 +35,25 @@ const GenreComics = (props: IProps) => {
   return (
     <div>
       <div style={{ margin: "25px 0" }}>
+        <div className="breadcrumb" style={{ padding: "5px" }}>
+          <Breadcrumb
+            style={{ fontSize: "16px" }}
+            items={[
+              {
+                title: (
+                  <>
+                    <Link href={"/"}>
+                      <HomeOutlined />
+                    </Link>
+                  </>
+                ),
+              },
+              {
+                title: <>{infoGenre?.name}</>,
+              },
+            ]}
+          />
+        </div>
         <h2>{infoGenre.name}</h2>
         <p style={{ fontSize: "16px" }}>{infoGenre.description}</p>
       </div>

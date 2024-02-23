@@ -3,7 +3,8 @@ import { Popover, List } from "antd";
 import { Button } from "antd/es/radio";
 import "./app.header.scss";
 import Link from "next/link";
-import { useState } from "react";
+import { use, useEffect, useState } from "react";
+import { sendRequest } from "@/src/utils/api";
 
 interface IProps {
   resGenres: IGenre[];
@@ -13,6 +14,19 @@ const MenuHeader = (props: IProps) => {
   const { resGenres } = props;
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
   const [isPopoverVisible, setIsPopoverVisible] = useState<boolean>(false);
+
+  useEffect(() => {
+    // const resInforacc = await sendRequest<any>({
+    //   url: `${process.env.NEXT_PUBLIC_BE_URL}/api/v1/auth/getInforSocialAccount`,
+    //   method: "POST",
+    //   nextOption: { cache: "no-store" },
+    //   body: {
+    //     email: "sflkjsd@sdf.df",
+    //     type: "GOOGLE",
+    //   },
+    // });
+    // console.log("resInforacc", resInforacc);
+  }, []);
 
   const handleMouseEnter = (item: IGenre) => {
     setHoveredItem(item.description);

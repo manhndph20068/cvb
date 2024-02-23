@@ -2,21 +2,20 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
 const initialState: VisitedComicsState = {
-  visitedComics: [],
+  comics: [],
 };
 
 export const visitedComicsState = createSlice({
-  name: "counter",
+  name: "visitedComics",
   initialState,
   // The `reducers` field lets us define reducers and generate associated actions
   reducers: {
     doAddAction: (state, action: PayloadAction<VisitedComicsPayload>) => {
-      console.log("doAddAction payload", action.payload);
       const item = action.payload;
-      const index = state.visitedComics.findIndex((i) => i.id === item.id);
+      const index = state.comics.findIndex((i) => i.id === item.id);
       console.log("index", index);
       if (index === -1) {
-        state.visitedComics.unshift({
+        state.comics.unshift({
           id: item.id,
           chapterIds: [+item.chapterIds],
           chapterName: item.chapterName,
@@ -24,23 +23,25 @@ export const visitedComicsState = createSlice({
           name: item.name,
         });
       } else {
-        if (state.visitedComics[index].chapterIds.includes(+item.chapterIds)) {
+        if (state.comics[index].chapterIds.includes(+item.chapterIds)) {
           return;
         } else {
-          state.visitedComics[index] = {
-            ...state.visitedComics[index],
-            chapterIds: [
-              ...state.visitedComics[index].chapterIds,
-              +item.chapterIds,
-            ],
+          state.comics[index] = {
+            ...state.comics[index],
+            chapterIds: [+item.chapterIds, ...state.comics[index].chapterIds],
             chapterName: item.chapterName,
             image: item.image,
             name: item.name,
           };
-          const updatedItem = state.visitedComics.splice(index, 1)[0];
-          state.visitedComics.unshift(updatedItem);
+          const updatedItem = state.comics.splice(index, 1)[0];
+          state.comics.unshift(updatedItem);
         }
       }
+    },
+    doDeleteAction: (state, action: PayloadAction<string>) => {
+      const id = action.payload;
+      const updateComics = state.comics.filter((i) => i.id !== id);
+      state.comics = updateComics;
     },
 
     // Use the PayloadAction type to declare the contents of `action.payload`
@@ -50,11 +51,11 @@ export const visitedComicsState = createSlice({
   extraReducers: (builder) => {},
 });
 
-export const { doAddAction } = visitedComicsState.actions;
+export const { doAddAction, doDeleteAction } = visitedComicsState.actions;
 
 /* Types */
 export interface VisitedComicsState {
-  visitedComics: {
+  comics: {
     id: string;
     chapterIds: number[];
     chapterName: string;

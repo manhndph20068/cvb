@@ -12,6 +12,12 @@ declare global {
     nextOption?: any;
   }
 
+  interface IBackendResponse<T> {
+    statusCode: number;
+    message: string;
+    data?: T;
+  }
+
   interface IModelPaginate<T> {
     current_page: number;
     total_pages: number;

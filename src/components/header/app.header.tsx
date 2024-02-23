@@ -1,13 +1,19 @@
 "use client";
 
-import { MenuOutlined, SearchOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Col, Row, Popover } from "antd";
-import { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
+import {
+  DownOutlined,
+  MenuOutlined,
+  SearchOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
+import { Button, Col, Row, Avatar, Dropdown, Space, MenuProps } from "antd";
+import { useEffect, useState, useRef } from "react";
+import { redirect, usePathname } from "next/navigation";
 import "./app.header.scss";
 import InputSearch from "./input.search";
 import MenuHeader from "./menu.header";
 import Link from "next/link";
+import { useSession, signIn, signOut } from "next-auth/react";
 
 interface IProps {
   resGenres: IGenre[];
@@ -15,8 +21,12 @@ interface IProps {
 
 const AppHeader = (props: IProps) => {
   const { resGenres } = props;
+  const [usernameWidth, setUsernameWidth] = useState<number | null>(null);
   const [openSearch, setOpenSearch] = useState(false);
   const pathname = usePathname();
+  const { data: session } = useSession();
+  const usernameRef = useRef<HTMLDivElement>(null);
+  console.log("check session", session);
 
   const handleOpenSearch = () => {
     setOpenSearch(!openSearch);
@@ -25,6 +35,36 @@ const AppHeader = (props: IProps) => {
   useEffect(() => {
     setOpenSearch(false);
   }, [pathname]);
+
+  useEffect(() => {
+    if (usernameRef.current) {
+      const width = usernameRef.current.getBoundingClientRect().width;
+      setUsernameWidth(width);
+    }
+  }, [session?.user?.name]);
+
+  const items: MenuProps["items"] = [
+    {
+      label: <Link href="#">Cài đặt</Link>,
+      key: "0",
+    },
+    {
+      label: <Link href="#">Danh sách yêu thích</Link>,
+      key: "1",
+    },
+    {
+      type: "divider",
+    },
+    {
+      onClick: () => {
+        {
+          signOut();
+        }
+      },
+      label: <div style={{ textAlign: "center", color: "red" }}>Logout</div>,
+      key: "3",
+    },
+  ];
 
   return (
     <>
@@ -81,38 +121,88 @@ const AppHeader = (props: IProps) => {
                 </div>
               </Link>
             </Col>
-            <Col md={14} sm={0} xs={0}>
+            <Col md={13} sm={0} xs={0}>
               <MenuHeader resGenres={resGenres} />
             </Col>
 
-            <Col md={5} sm={0} xs={0}>
+            <Col md={6} sm={0} xs={0}>
               <div className="right-content">
                 <div
                   style={{
                     display: "flex",
                     justifyContent: "space-around",
+                    gap: "10px",
                     width: "100%",
                   }}
                 >
                   <Button
                     type="primary"
-                    style={{ background: "#8E5D4F" }}
+                    style={{
+                      background: openSearch ? "white" : "black",
+                    }}
                     size="large"
-                    color="#8E5D4F"
                     shape="circle"
-                    icon={<SearchOutlined />}
+                    icon={
+                      <SearchOutlined
+                        style={{ color: openSearch ? "black" : "white" }}
+                      />
+                    }
                     onClick={() => handleOpenSearch()}
                   />
-                  <Button
-                    type="link"
-                    style={{ background: "#8E5D4F", color: "white" }}
-                    shape="round"
-                    icon={<UserOutlined />}
-                    ghost
-                    size="large"
-                  >
-                    Login
-                  </Button>
+                  {session ? (
+                    <div
+                      style={{
+                        display: "flex",
+                        width: "auto",
+                        gap: "7px",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Avatar
+                        size="large"
+                        src={
+                          session.user?.image
+                            ? `${session.user?.image}`
+                            : `${session.userInfo?.avatar}` ?? null
+                        }
+                        icon={<UserOutlined />}
+                      />
+                      <div
+                        className="user-name"
+                        style={{
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                        }}
+                        ref={usernameRef}
+                      >
+                        <Dropdown menu={{ items }} trigger={["click"]}>
+                          <a onClick={(e) => e.preventDefault()}>
+                            <Space>
+                              {session.user?.name ?? session.userInfo.email}
+                              <DownOutlined />
+                            </Space>
+                          </a>
+                        </Dropdown>
+                      </div>
+                    </div>
+                  ) : (
+                    <>
+                      <Button
+                        type="link"
+                        style={{ background: "#8E5D4F", color: "white" }}
+                        shape="round"
+                        icon={<UserOutlined />}
+                        ghost
+                        size="large"
+                        onClick={() => {
+                          signIn();
+                        }}
+                      >
+                        Login
+                      </Button>
+                    </>
+                  )}
                 </div>
               </div>
             </Col>
