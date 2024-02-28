@@ -4,19 +4,17 @@ import Link from "next/link";
 import { FaRegEye } from "react-icons/fa";
 
 interface IProps {
-  DataTopOfWeek: ICommics[];
+  data: ICommics[];
 }
-
-const TopOfWeek = (props: IProps) => {
-  const { DataTopOfWeek } = props;
+const Top = (props: IProps) => {
+  const { data } = props;
   return (
     <>
-      {DataTopOfWeek?.map((item, index) => {
+      {data.map((item, index) => {
         return (
           <div
             key={item.id}
             style={{
-              border: "1px solid black",
               padding: "5px",
               marginBottom: "7px",
               maxWidth: "100%",
@@ -25,16 +23,15 @@ const TopOfWeek = (props: IProps) => {
           >
             <div
               style={{
-                width: "30%",
-                height: "100px",
-                border: "1px solid red",
+                width: "35%",
+                height: "90px",
                 display: "flex",
                 alignItems: "center", // Vertical centering
                 justifyContent: "space-evenly",
               }}
             >
               <h1 style={{ fontFamily: "Calibri", width: "35px" }}>
-                0{index + 1}
+                {index + 1}
               </h1>
               <div
                 style={{
@@ -52,41 +49,37 @@ const TopOfWeek = (props: IProps) => {
                     }}
                     priority
                     fill
-                    src={item.thumbnail}
-                    alt={item.title}
+                    src={item?.thumbnail}
+                    alt={item?.title}
                   />
                 </Link>
               </div>
             </div>
             <div
               style={{
-                width: "70%",
-                height: "100px",
-                border: "1px solid blue",
+                width: "65%",
+                height: "90px",
               }}
             >
               <div
                 style={{
-                  border: "1px solid red",
                   height: "50%",
                 }}
               >
                 <div
                   style={{
-                    fontSize: "16px",
+                    fontSize: "15px",
                     fontWeight: "bold",
-
                     overflow: "hidden",
                     textOverflow: "ellipsis",
                     whiteSpace: "nowrap",
                   }}
                 >
-                  <Link href={"#"}> {item.title}</Link>
+                  <Link href={"#"}> {item?.title}</Link>
                 </div>
               </div>
               <div
                 style={{
-                  border: "1px solid black",
                   height: "50%",
                   display: "flex",
                   justifyContent: "space-between",
@@ -96,16 +89,15 @@ const TopOfWeek = (props: IProps) => {
               >
                 <div
                   style={{
-                    fontSize: "16px",
-                    fontWeight: "bold",
+                    fontSize: "15px",
                   }}
                 >
                   <Link href={"#"}>{item?.last_chapter?.name}</Link>
                 </div>
                 <div
                   style={{
-                    fontSize: "16px",
-                    fontWeight: "bold",
+                    fontSize: "15px",
+
                     display: "flex",
                     alignItems: "center",
                     gap: 5,
@@ -122,4 +114,4 @@ const TopOfWeek = (props: IProps) => {
     </>
   );
 };
-export default TopOfWeek;
+export default Top;

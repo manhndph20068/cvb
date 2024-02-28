@@ -1,5 +1,5 @@
 "use client";
-import { Popover, List } from "antd";
+import { Popover, List, Divider } from "antd";
 import { Button } from "antd/es/radio";
 import "./app.header.scss";
 import Link from "next/link";
@@ -63,6 +63,10 @@ const MenuHeader = (props: IProps) => {
 
   return (
     <div className="center-content">
+      <Link href={"/truyen-moi"}>
+        <div className="menu">Truyện Mới</div>
+      </Link>
+
       <Popover
         overlayStyle={{
           width: "550px",
@@ -74,6 +78,14 @@ const MenuHeader = (props: IProps) => {
       >
         <div className="menu">Thể Loại</div>
       </Popover>
+
+      <Link href={"/truyen-full"}>
+        <div className="menu">Truyện Full</div>
+      </Link>
+
+      <Link href={"/theo-doi"}>
+        <div className="menu">Theo dõi</div>
+      </Link>
     </div>
   );
 };

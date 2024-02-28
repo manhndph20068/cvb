@@ -1,13 +1,8 @@
 "use client";
-import { Col, Row, Tabs } from "antd";
+import { Tabs } from "antd";
 import type { TabsProps } from "antd";
 import "./top.component.scss";
-import { MdOutlineCalendarMonth } from "react-icons/md";
-import { IoTodayOutline } from "react-icons/io5";
-import { BsCalendar4Week } from "react-icons/bs";
-import TopOfMonth from "./top.month";
-import TopOfWeek from "./top.week";
-import TopDaily from "./top.daily";
+import Top from "./top";
 
 interface IProps {
   DataTopOfMonth: ICommics[];
@@ -21,17 +16,17 @@ const TopComponent = (props: IProps) => {
     {
       key: "1",
       label: "Top Tháng",
-      children: <TopOfMonth DataTopOfMonth={DataTopOfMonth} />,
+      children: <Top data={DataTopOfMonth} />,
     },
     {
       key: "2",
       label: "Top Tuần",
-      children: <TopOfWeek DataTopOfWeek={DataTopOfWeek} />,
+      children: <Top data={DataTopOfWeek} />,
     },
     {
       key: "3",
       label: "Top Ngày",
-      children: <TopDaily DataTopOfDaily={DataTopOfDaily} />,
+      children: <Top data={DataTopOfDaily} />,
     },
   ];
 
@@ -45,7 +40,6 @@ const TopComponent = (props: IProps) => {
         style={{
           display: "flex",
           justifyContent: "center",
-          border: "1px solid red",
         }}
       >
         <Tabs

@@ -2,6 +2,7 @@ import ".././styles/globals.css";
 
 import AppHeader from "../../components/header/app.header";
 import { sendRequest } from "../../utils/api";
+import AppFooter from "@/src/components/footer/app.footer";
 
 export default async function RootLayout({
   children,
@@ -17,7 +18,8 @@ export default async function RootLayout({
   return (
     <>
       <AppHeader resGenres={resGenres} />
-      {children}
+      <div style={{ minHeight: "100vh" }}> {children}</div>
+      <AppFooter />
     </>
   );
 }

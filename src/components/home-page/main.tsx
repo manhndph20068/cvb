@@ -26,8 +26,8 @@ const Main = (props: IProps) => {
   const listComicsVisited = useSelector((state) => state.visitedComics);
 
   return (
-    <Layout style={{ marginTop: "15px", backgroundColor: "white" }}>
-      <Row gutter={[0, 15]} justify="center">
+    <>
+      <Row gutter={[0, 15]} justify="center" style={{ marginBottom: "10px" }}>
         <Col
           xs={{ span: 23 }}
           sm={{ span: 23 }}
@@ -47,7 +47,6 @@ const Main = (props: IProps) => {
           lg={{ span: 15 }}
           xl={{ span: 13 }}
           xxl={{ span: 11 }}
-          style={{ border: "1px solid red" }}
         >
           <RecentUpdateComics data={RecentUpdateComicsData} />
         </Col>
@@ -58,7 +57,6 @@ const Main = (props: IProps) => {
           lg={{ span: 7 }}
           xl={{ span: 6 }}
           xxl={{ span: 6 }}
-          style={{ border: "1px solid green" }}
         >
           {listComicsVisited && listComicsVisited.comics.length > 0 && (
             <VisitedComponent listComicsVisited={listComicsVisited} />
@@ -81,7 +79,7 @@ const Main = (props: IProps) => {
           <FloatButton.BackTop />
         </Col>
       </Row>
-    </Layout>
+    </>
   );
 };
 export default Main;

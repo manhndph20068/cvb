@@ -18,6 +18,19 @@ declare global {
     data?: T;
   }
 
+  interface Subscriptions {
+    id: number;
+    name: string;
+    image: string;
+    idComic: string;
+  }
+
+  interface IBackendApiResponse {
+    statusCode: number;
+    message: string;
+    data?: T;
+  }
+
   interface IModelPaginate<T> {
     current_page: number;
     total_pages: number;

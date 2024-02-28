@@ -155,53 +155,47 @@ const RecommnendComics = (props: IProps) => {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                border: "1px solid blue",
               }}
             >
-              <div
-                style={{
-                  position: "relative",
-                  height: "205px",
-                  width: "170px",
-                  textAlign: "center",
-                }}
-              >
+              <Link href={`/truyen-tranh/${item.id}`}>
                 <div
                   style={{
-                    position: "absolute",
-                    top: 4,
-                    left: 5,
-                    background: "#56ccf2", // Màu nền của tag
-                    color: "#fff", // Màu chữ của tag
-                    padding: "2px 6px", // Kích thước padding của tag
-                    borderRadius: " 5px ", // Độ cong của góc tag
-                    zIndex: 1,
-                    fontSize: "12px",
-                    opacity: 1,
+                    position: "relative",
+                    height: "205px",
+                    width: "170px",
+                    textAlign: "center",
                   }}
                 >
-                  {item.updated_at}
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: 4,
+                      left: 5,
+                      background: "#56ccf2", // Màu nền của tag
+                      color: "#fff", // Màu chữ của tag
+                      padding: "2px 6px", // Kích thước padding của tag
+                      borderRadius: " 5px ", // Độ cong của góc tag
+                      zIndex: 1,
+                      fontSize: "12px",
+                      opacity: 1,
+                    }}
+                  >
+                    {item.updated_at}
+                  </div>
+                  <Image
+                    src={`${item.thumbnail}`}
+                    alt={item.title}
+                    priority
+                    sizes="100%"
+                    fill
+                    style={{
+                      objectFit: "cover",
+                      borderRadius: "5px",
+                    }}
+                  />
                 </div>
-                <Image
-                  src={`${item.thumbnail}`}
-                  alt={item.title}
-                  priority
-                  sizes="100%"
-                  fill
-                  style={{
-                    objectFit: "cover",
-                    borderRadius: "5px",
-                  }}
-                />
-              </div>
-
-              <Link
-                // href={`/track/${convertSlugUrl(item.title)}-${
-                //   item._id
-                // }.html?audio=${item.trackUrl}`}
-
-                href={`#`}
-              >
+              </Link>
+              <Link href={`/truyen-tranh/${item.id}`}>
                 <div
                   style={{
                     width: "170px",
@@ -218,11 +212,7 @@ const RecommnendComics = (props: IProps) => {
                 </div>
               </Link>
               <Link
-                // href={`/track/${convertSlugUrl(item.title)}-${
-                //   item._id
-                // }.html?audio=${item.trackUrl}`}
-
-                href={`#`}
+                href={`/truyen-tranh/${item.id}/${item?.lastest_chapter.id}`}
               >
                 <div
                   style={{
@@ -231,10 +221,9 @@ const RecommnendComics = (props: IProps) => {
                     textOverflow: "ellipsis",
                     whiteSpace: "nowrap",
                     textAlign: "center",
-                    marginTop: "7px",
+                    marginTop: "8px",
                   }}
                 >
-                  {" "}
                   {item.lastest_chapter.name}
                 </div>
               </Link>

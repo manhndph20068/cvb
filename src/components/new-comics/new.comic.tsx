@@ -1,18 +1,19 @@
 "use client";
+
 import { HomeOutlined } from "@ant-design/icons";
 import { Breadcrumb, List, Pagination, Space, Tag } from "antd";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter, useSearchParams, usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
 import { FaRegEye } from "react-icons/fa";
+
 interface IProps {
-  DetailInforComic: IModelPaginate<ICommics>;
-  infoGenre: IGenre;
+  NewComicsData: IModelPaginate<ICommics>;
 }
 
-const GenreComics = (props: IProps) => {
-  const { DetailInforComic, infoGenre } = props;
+const NewComic = (props: IProps) => {
+  const { NewComicsData } = props;
   const [hoveredItemId, setHoveredItemId] = useState<string | null>(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const searchParams = useSearchParams();
@@ -31,7 +32,6 @@ const GenreComics = (props: IProps) => {
   };
 
   const comicsPerPage = 36;
-
   return (
     <div>
       <div style={{ margin: "25px 0" }}>
@@ -49,13 +49,11 @@ const GenreComics = (props: IProps) => {
                 ),
               },
               {
-                title: <>{infoGenre?.name}</>,
+                title: <>Truyện mới</>,
               },
             ]}
           />
         </div>
-        <h2>{infoGenre.name}</h2>
-        <p style={{ fontSize: "16px" }}>{infoGenre.description}</p>
       </div>
 
       <List
@@ -67,7 +65,7 @@ const GenreComics = (props: IProps) => {
           xl: 5,
           xxl: 6,
         }}
-        dataSource={DetailInforComic?.comics}
+        dataSource={NewComicsData?.comics}
         renderItem={(item) => (
           <List.Item>
             <div
@@ -275,7 +273,7 @@ const GenreComics = (props: IProps) => {
       >
         <Pagination
           defaultCurrent={query ? parseInt(query) : 1}
-          total={DetailInforComic?.total_pages * comicsPerPage}
+          total={NewComicsData?.total_pages * comicsPerPage}
           showSizeChanger={false}
           pageSize={comicsPerPage}
           onChange={(e) => {
@@ -286,4 +284,4 @@ const GenreComics = (props: IProps) => {
     </div>
   );
 };
-export default GenreComics;
+export default NewComic;

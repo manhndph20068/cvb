@@ -23,7 +23,7 @@ const VisitedComponent = (props: IProps) => {
   };
 
   return (
-    <div style={{ padding: "10px" }}>
+    <div style={{ padding: "18px 10px" }}>
       <div
         style={{
           display: "flex",
@@ -32,7 +32,7 @@ const VisitedComponent = (props: IProps) => {
           marginBottom: "17px",
         }}
       >
-        <div style={{ fontSize: "19px", fontWeight: "bold" }}>
+        <div style={{ fontSize: "21px", fontWeight: "bold" }}>
           Lịch sử đọc truyện
         </div>
         <Link href="/lich-su">
@@ -48,6 +48,7 @@ const VisitedComponent = (props: IProps) => {
               flexDirection: "row",
               gap: "13px",
               marginBottom: "10px",
+              height: "88px",
             }}
           >
             <div
@@ -89,11 +90,13 @@ const VisitedComponent = (props: IProps) => {
               <Link href={`/truyen-tranh/${item?.id}`}>
                 <div
                   style={{
-                    width: "auto",
+                    width: "218px",
+
                     fontSize: "15px",
                     fontWeight: "bold",
                     overflow: "hidden",
                     textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
                   }}
                 >
                   {item.name}

@@ -2,10 +2,10 @@ import Image from "next/image";
 
 interface IProps {
   ChapterComic: IChapter;
+  currentServer: number;
 }
 const Content = (props: IProps) => {
-  const { ChapterComic } = props;
-  console.log("ChapterComic", ChapterComic);
+  const { ChapterComic, currentServer } = props;
   return (
     <>
       <div
@@ -22,9 +22,8 @@ const Content = (props: IProps) => {
               style={{ width: "100%", height: "auto", margin: 0, padding: 0 }}
               width={0}
               height={0}
-              // loading="lazy"
               sizes="100vw"
-              src={item.src}
+              src={currentServer === 1 ? item.src : item.backup_src}
               alt={item.src}
             />
           );

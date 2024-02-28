@@ -6,7 +6,8 @@ import { authOptions } from "@/src/utils/authOptions";
 
 export const revalidate = 900;
 export const metadata: Metadata = {
-  title: "Đọc truyện tranh online",
+  title:
+    "Đọc truyện tranh online miễn phí tại Mangahub - Author Nguyen Duc Manh",
   description: "homepage",
 };
 

@@ -4,11 +4,11 @@ import {
   Button,
   Col,
   Flex,
-  Layout,
   List,
   Row,
   Space,
   Tag,
+  message,
 } from "antd";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Image from "next/image";
@@ -26,9 +26,12 @@ import { Content } from "antd/es/layout/layout";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSelector } from "@/src/lib/redux";
+import { useSession } from "next-auth/react";
+import { sendRequest } from "@/src/utils/api";
 
 interface IProps {
   DetailInforComic: IDetailComic;
+  resSubscriptions?: IBackendResponse<Subscriptions[]>;
 }
 
 const paragraphStyle: React.CSSProperties = {
@@ -40,12 +43,16 @@ const paragraphStyle: React.CSSProperties = {
 };
 
 const InforComic = (props: IProps) => {
-  const { DetailInforComic } = props;
+  const { DetailInforComic, resSubscriptions } = props;
   const [isOpen, setIsOpen] = useState(false);
-  const [showReadMoreButton, setShowReadMoreButton] = useState(false);
+  const [showReadMoreButton, setShowReadMoreButton] = useState<boolean>(false);
   const visitedChapter = useSelector((state) => state.visitedComics.comics);
   const router = useRouter();
+  const { data: session } = useSession();
   const ref = useRef<HTMLDivElement>(null);
+  const hasSub = resSubscriptions?.data?.some(
+    (item) => item.idComic === DetailInforComic?.id
+  );
 
   useEffect(() => {
     if (ref.current) {
@@ -57,10 +64,70 @@ const InforComic = (props: IProps) => {
   const visitedChapterIds = visitedChapter?.find(
     (item: any) => item.id === DetailInforComic?.id
   );
-  console.log("visitedChapterIds", visitedChapterIds?.chapterIds);
+
+  const handleFollow = async () => {
+    if (!session) {
+      message.info("Bạn cần đăng nhập để theo dõi truyện");
+    }
+    if (session) {
+      const res = await sendRequest<IBackendResponse<any>>({
+        url: `${process.env.NEXT_PUBLIC_BE_URL}/api/v1/subscriptions/saveSubscription`,
+        method: "POST",
+        body: {
+          idAccount: session?.userInfo?.id,
+          idComic: DetailInforComic?.id,
+          name: DetailInforComic?.title,
+          image: DetailInforComic?.thumbnail,
+        },
+      });
+      console.log(res);
+      if (res.statusCode === 0) {
+        await sendRequest({
+          url: `/api/revalidate`,
+          method: "POST",
+          queryParams: {
+            tag: "subscriptions-by-user",
+            secret: "randomString",
+          },
+        });
+        router.refresh();
+      } else {
+        message.error(res.message);
+        router.refresh();
+      }
+    }
+  };
+
+  const handleUnFollow = async () => {
+    if (session) {
+      const res = await sendRequest<IBackendResponse<any>>({
+        url: `${process.env.NEXT_PUBLIC_BE_URL}/api/v1/subscriptions/deleteSubscription`,
+        method: "POST",
+        body: {
+          idAccount: session?.userInfo?.id,
+          idComic: DetailInforComic?.id,
+        },
+      });
+
+      if (res.statusCode === 0) {
+        await sendRequest({
+          url: `/api/revalidate`,
+          method: "POST",
+          queryParams: {
+            tag: "subscriptions-by-user",
+            secret: "randomString",
+          },
+        });
+        router.refresh();
+      } else {
+        message.error(res.message);
+        router.refresh();
+      }
+    }
+  };
 
   return (
-    <Layout>
+    <>
       <Row>
         <Col span={24}>
           <div className="breadcrumb" style={{ padding: "5px" }}>
@@ -70,7 +137,7 @@ const InforComic = (props: IProps) => {
                 {
                   title: (
                     <>
-                      <Link href={"/"}>
+                      <Link href={"/"} prefetch={false}>
                         <HomeOutlined />
                       </Link>
                     </>
@@ -99,7 +166,6 @@ const InforComic = (props: IProps) => {
             display: "flex",
             justifyContent: "center",
             padding: "15px 0",
-            border: "1px solid blue",
           }}
         >
           <div
@@ -120,7 +186,7 @@ const InforComic = (props: IProps) => {
             />
           </div>
         </Col>
-        {/* <div style={{ height: "100%" }}> */}
+
         <Col
           xs={{ span: 24 }}
           sm={{ span: 24 }}
@@ -133,7 +199,6 @@ const InforComic = (props: IProps) => {
             justifyContent: "start",
             padding: "15px 15px",
             height: "100%",
-            border: "1px solid green",
           }}
         >
           <div
@@ -298,7 +363,9 @@ const InforComic = (props: IProps) => {
                   xxl={{ span: 20 }}
                   style={{ fontSize: "17px" }}
                 >
-                  {DetailInforComic?.followers}
+                  {new Intl.NumberFormat("en-US").format(
+                    DetailInforComic?.followers
+                  )}
                 </Col>
               </Row>
             </div>
@@ -335,7 +402,9 @@ const InforComic = (props: IProps) => {
                   xxl={{ span: 20 }}
                   style={{ fontSize: "17px" }}
                 >
-                  {DetailInforComic?.total_views}
+                  {new Intl.NumberFormat("en-US").format(
+                    DetailInforComic?.total_views
+                  )}
                 </Col>
               </Row>
             </div>
@@ -349,8 +418,8 @@ const InforComic = (props: IProps) => {
               <Space size={[7, 7]} wrap>
                 {DetailInforComic?.genres.map((genre) => {
                   return (
-                    <Link href={`/genre/${genre?.id}`}>
-                      <Tag color="processing" style={{ fontSize: "15px" }}>
+                    <Link href={`/genre/${genre?.id}`} prefetch={false}>
+                      <Tag color="processing" style={{ fontSize: "16px" }}>
                         {genre?.name}
                       </Tag>
                     </Link>
@@ -379,9 +448,31 @@ const InforComic = (props: IProps) => {
                 >
                   Đọc từ đầu
                 </Button>
-                <Button danger icon={<HeartOutlined />} size="large">
-                  Theo dõi
-                </Button>
+                {hasSub && (
+                  <>
+                    <Button
+                      type="primary"
+                      danger
+                      icon={<HeartOutlined />}
+                      size="large"
+                      onClick={() => handleUnFollow()}
+                    >
+                      Bỏ theo dõi
+                    </Button>
+                  </>
+                )}
+                {!hasSub && (
+                  <>
+                    <Button
+                      danger
+                      icon={<HeartOutlined />}
+                      size="large"
+                      onClick={() => handleFollow()}
+                    >
+                      Theo dõi
+                    </Button>
+                  </>
+                )}
               </Flex>
             </div>
           </div>
@@ -389,7 +480,7 @@ const InforComic = (props: IProps) => {
         {/* </div> */}
       </Row>
       <Row>
-        <Col span={24} style={{ border: "1px solid red", marginTop: "10px" }}>
+        <Col span={24} style={{ marginTop: "10px" }}>
           <Content style={{ padding: "0 2%" }}>
             <div>
               <div
@@ -419,7 +510,6 @@ const InforComic = (props: IProps) => {
         <Col
           span={24}
           style={{
-            border: "1px solid orange",
             padding: "1% 1%",
             marginTop: "10px",
           }}
@@ -446,6 +536,7 @@ const InforComic = (props: IProps) => {
                 renderItem={(item) => (
                   <List.Item key={item?.id}>
                     <Link
+                      prefetch={false}
                       href={`/truyen-tranh/${DetailInforComic?.id}/${item?.id}`}
                     >
                       <div
@@ -466,7 +557,7 @@ const InforComic = (props: IProps) => {
           </div>
         </Col>
       </Row>
-    </Layout>
+    </>
   );
 };
 export default InforComic;

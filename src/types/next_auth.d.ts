@@ -1,6 +1,7 @@
 import NextAuth, { DefaultSession } from "next-auth";
 
 interface IUser {
+  id: number;
   username: string | null;
   email: string;
   avatar: string | null;

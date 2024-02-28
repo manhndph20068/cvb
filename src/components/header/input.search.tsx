@@ -1,7 +1,6 @@
 "use client";
 import qs from "qs";
 import { useState } from "react";
-import jsonp from "fetch-jsonp";
 import { Col, Divider, Row, Select, Spin } from "antd";
 import axios from "axios";
 import Link from "next/link";
@@ -52,14 +51,14 @@ const fetchData = (value: string, callback: Function) => {
   }
 };
 
-function SomeFunctionComponet({ option, index, options }: any) {
+function RenderList({ option, index, options }: any) {
   return (
     <Link href={`/truyen-tranh/${option.id}`}>
-      <div key={option?.id} style={{ display: "flex", gap: 5 }}>
+      <div key={option?.id} style={{ display: "flex", gap: 12 }}>
         <img
           src={option?.image}
           alt={option?.title}
-          style={{ height: "65px" }}
+          style={{ height: "65px", width: "50px" }}
         />
         <div
           style={{
@@ -118,7 +117,7 @@ const InputSearch = () => {
           >
             {(data || []).map((d: any, index: number) => (
               <Select.Option key={d.id} value={d.id}>
-                <SomeFunctionComponet option={d} index={index} options={d} />
+                <RenderList option={d} index={index} options={d} />
               </Select.Option>
             ))}
           </Select>

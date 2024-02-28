@@ -35,7 +35,7 @@ const RecentUpdateComics = (props: IProps) => {
   const comicsPerPage = 36;
 
   return (
-    <div style={{ paddingLeft: "" }}>
+    <div>
       <div>
         <h2 className="title-comic">Truyện Mới Cập Nhật</h2>
       </div>
@@ -55,7 +55,7 @@ const RecentUpdateComics = (props: IProps) => {
               key={item?.id}
               style={{ display: "flex", justifyContent: "center" }}
             >
-              <Link href={`/truyen-tranh/${item.id}`}>
+              <Link href={`/truyen-tranh/${item.id}`} prefetch={false}>
                 <div
                   style={{
                     position: "relative",
@@ -129,11 +129,7 @@ const RecentUpdateComics = (props: IProps) => {
               </Link>
             </div>
             <Link
-              // href={`/track/${convertSlugUrl(item.title)}-${
-              //   item._id
-              // }.html?audio=${item.trackUrl}`}
-
-              href={`#`}
+              href={`/truyen-tranh/${item.id}`}
               style={{ display: "flex", justifyContent: "center" }}
             >
               <div
@@ -220,11 +216,7 @@ const RecentUpdateComics = (props: IProps) => {
               </div>
             </Link>
             <Link
-              // href={`/track/${convertSlugUrl(item.title)}-${
-              //   item._id
-              // }.html?audio=${item.trackUrl}`}
-
-              href={`#`}
+              href={`/truyen-tranh/${item.id}/${item?.last_chapter?.id}`}
               style={{ display: "flex", justifyContent: "center" }}
             >
               <div
@@ -252,7 +244,6 @@ const RecentUpdateComics = (props: IProps) => {
           alignItems: "center",
           marginTop: "10px",
           height: "50px",
-          border: "1px solid red",
         }}
       >
         <Pagination

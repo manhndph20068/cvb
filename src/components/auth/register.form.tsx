@@ -1,30 +1,28 @@
 "use client";
 import "./login.form.scss";
-import { Form, Input, Button, Divider, message } from "antd";
-import {
-  UserOutlined,
-  LockOutlined,
-  GithubOutlined,
-  GoogleOutlined,
-  LeftOutlined,
-} from "@ant-design/icons";
+import { Form, Input, Button, message } from "antd";
+import { UserOutlined, LockOutlined, LeftOutlined } from "@ant-design/icons";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { sendRequest } from "@/src/utils/api";
 
-const LoginForm = () => {
+const RegisterForm = () => {
   const router = useRouter();
   const onFinish = async (values: { email: string; password: string }) => {
-    const res = await signIn("credentials", {
-      username: values.email,
-      password: values.password,
-      redirect: false,
+    const res = await sendRequest<any>({
+      url: `${process.env.NEXT_PUBLIC_BE_URL}/api/v1/auth/signUpCredential`,
+      method: "POST",
+      body: {
+        email: values.email,
+        password: values.password,
+      },
     });
-    if (!res?.error) {
-      router.push("/");
+    if (res.statusCode === 0) {
+      router.push("/auth/signin");
+      message.success("Đăng ký tài khoản thành công!");
     } else {
-      console.log(res);
-      message.error("Email hoặc mật khẩu không đúng!");
+      message.error("Email hoặc mật khẩu không hợp lệ!");
     }
   };
 
@@ -34,7 +32,7 @@ const LoginForm = () => {
         <div>
           <LeftOutlined onClick={() => router.push("/")} />
         </div>
-        <h1 style={{ textAlign: "center" }}>Login</h1>
+        <h1 style={{ textAlign: "center" }}>Register</h1>
         <Form
           name="normal_login"
           className="login-form"
@@ -79,35 +77,15 @@ const LoginForm = () => {
               htmlType="submit"
               className="login-form-button"
             >
-              Log in
+              Sign Up
             </Button>
             <div style={{ textAlign: "center" }}>
-              Don't have an account yet?{" "}
-              <Link href={"/auth/signup"}>Sign Up</Link>
+              Have an account? <Link href={"/auth/signin"}>Sign In</Link>
             </div>
-            <Divider>Or</Divider>
-            <Button
-              type="text"
-              className="login-form-github"
-              icon={<GithubOutlined style={{}} />}
-              onClick={() => {
-                signIn("github");
-              }}
-            >
-              Login with Github
-            </Button>
-            <Button
-              type="text"
-              htmlType="submit"
-              className="login-form-google"
-              icon={<GoogleOutlined style={{}} />}
-            >
-              Login with Google
-            </Button>
           </Form.Item>
         </Form>
       </div>
     </div>
   );
 };
-export default LoginForm;
+export default RegisterForm;

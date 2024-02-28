@@ -1,14 +1,14 @@
 "use client";
 import { Col, Row } from "antd";
 import InforComic from "./infor.comic";
-import { useSelector } from "@/src/lib/redux";
 
 interface IProps {
   DetailInforComic: IDetailComic;
+  resSubscriptions?: IBackendResponse<Subscriptions[]>;
 }
 
 const MainInforComic = (props: IProps) => {
-  const { DetailInforComic } = props;
+  const { DetailInforComic, resSubscriptions } = props;
 
   return (
     <div style={{ marginTop: "10px" }}>
@@ -20,9 +20,11 @@ const MainInforComic = (props: IProps) => {
           lg={{ span: 22 }}
           xl={{ span: 19 }}
           xxl={{ span: 17 }}
-          style={{ border: "1px solid blue" }}
         >
-          <InforComic DetailInforComic={DetailInforComic} />
+          <InforComic
+            DetailInforComic={DetailInforComic}
+            resSubscriptions={resSubscriptions}
+          />
         </Col>
       </Row>
     </div>

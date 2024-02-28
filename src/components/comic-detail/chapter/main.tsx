@@ -2,9 +2,9 @@
 import { Col, FloatButton, Row } from "antd";
 import Title from "./title";
 import Content from "./content";
-import { useSelector } from "@/src/lib/redux";
 import { doAddAction } from "@/src/lib/redux/slices/visitedComicsSlice/visitedComicsSlice";
 import { useDispatch } from "react-redux";
+import { useState } from "react";
 
 interface IProps {
   ChapterComic: IChapter;
@@ -15,6 +15,7 @@ interface IProps {
 
 const MainChapterOfComic = (props: IProps) => {
   const { ChapterComic, comicId, chapterId, DetailInforComic } = props;
+  const [currentServer, setCurrentServer] = useState<number>(1);
   const dispatch = useDispatch();
 
   if (ChapterComic?.chapter_name || ChapterComic?.chapters?.length > 0) {
@@ -42,12 +43,13 @@ const MainChapterOfComic = (props: IProps) => {
           lg={{ span: 22 }}
           xl={{ span: 19 }}
           xxl={{ span: 17 }}
-          style={{ border: "1px solid red" }}
         >
           <Title
             chapterId={chapterId}
             comicId={comicId}
             ChapterComic={ChapterComic}
+            setCurrentServer={setCurrentServer}
+            currentServer={currentServer}
           />
         </Col>
         <Col
@@ -57,9 +59,9 @@ const MainChapterOfComic = (props: IProps) => {
           lg={{ span: 23 }}
           xl={{ span: 16 }}
           xxl={{ span: 13 }}
-          style={{ border: "1px solid black", marginTop: "5px" }}
+          style={{ marginTop: "5px" }}
         >
-          <Content ChapterComic={ChapterComic} />
+          <Content ChapterComic={ChapterComic} currentServer={currentServer} />
         </Col>
         <Col
           xs={{ span: 0 }}

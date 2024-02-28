@@ -7,6 +7,7 @@ import {
   RightOutlined,
 } from "@ant-design/icons";
 import { Affix, Breadcrumb, Button, Flex, Select } from "antd";
+import { setServers } from "dns";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
@@ -15,6 +16,8 @@ interface IProps {
   ChapterComic: IChapter;
   comicId: string;
   chapterId: number;
+  setCurrentServer: (value: number) => void;
+  currentServer: number;
 }
 
 const CtrlAffixed: React.CSSProperties = {
@@ -28,7 +31,8 @@ const CtrlAffixed: React.CSSProperties = {
 };
 
 const Title = (props: IProps) => {
-  const { ChapterComic, comicId, chapterId } = props;
+  const { ChapterComic, comicId, chapterId, setCurrentServer, currentServer } =
+    props;
   const [listChapter, setListChapter] = useState<
     Array<{ value: string; label: string }>
   >([]);
@@ -36,6 +40,7 @@ const Title = (props: IProps) => {
   const [affixCtrl, setAffixCtrl] = useState<boolean>(false);
   const [nextButton, setNextButton] = useState<boolean>(true);
   const [prevButton, setPrevButton] = useState<boolean>(true);
+
   const selectRef = useRef(null);
   const router = useRouter();
 
@@ -106,10 +111,7 @@ const Title = (props: IProps) => {
   }, [currentChapter]);
 
   return (
-    <div
-      className="header"
-      style={{ border: "1px solid black", padding: "7px" }}
-    >
+    <div className="header" style={{ padding: "7px" }}>
       <div className="breadcrumb">
         <Breadcrumb
           style={{ fontSize: "16px" }}
@@ -117,7 +119,7 @@ const Title = (props: IProps) => {
             {
               title: (
                 <>
-                  <Link href={"/"}>
+                  <Link href={"/"} prefetch={false}>
                     <HomeOutlined />
                   </Link>
                 </>
@@ -126,7 +128,7 @@ const Title = (props: IProps) => {
             {
               title: (
                 <>
-                  <Link href={`/truyen-tranh/${comicId}`}>
+                  <Link href={`/truyen-tranh/${comicId}`} prefetch={false}>
                     <span>{ChapterComic?.comic_name}</span>
                   </Link>
                 </>
@@ -146,11 +148,42 @@ const Title = (props: IProps) => {
         style={{ display: "flex", flexDirection: "row", alignItems: "center" }}
       >
         <p style={{ fontSize: "24px" }} className="title">
-          <Link href={`/truyen-tranh/${comicId}`}>
+          <Link href={`/truyen-tranh/${comicId}`} prefetch={false}>
             {ChapterComic?.comic_name}
           </Link>{" "}
           - {ChapterComic?.chapter_name}
         </p>
+      </div>
+      <div style={{ textAlign: "center", color: "red", fontSize: "16px" }}>
+        <span>Chọn server khác nếu không tải được ảnh</span>
+      </div>
+
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: "10px",
+          padding: "10px",
+        }}
+      >
+        <Button
+          type={currentServer === 1 ? "primary" : "default"}
+          onClick={() => {
+            setCurrentServer(1);
+          }}
+        >
+          Sever 1
+        </Button>
+        <Button
+          type={currentServer === 2 ? "primary" : "default"}
+          onClick={() => {
+            setCurrentServer(2);
+          }}
+        >
+          Sever 2
+        </Button>
       </div>
       <div>
         <Affix
