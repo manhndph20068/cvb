@@ -21,6 +21,9 @@ declare module "next-auth" {
     accessToken: string;
     refreshToken: string;
     userInfo: IUser;
+    accessExpire: number;
+    error: string;
+    type: string;
   }
 }
 import { JWT } from "next-auth/jwt";
@@ -31,5 +34,8 @@ declare module "next-auth/jwt" {
     accessToken: string;
     refreshToken: string;
     userInfo: IUser;
+    accessExpire: number;
+    error: string;
+    type: string;
   }
 }

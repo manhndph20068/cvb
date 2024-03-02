@@ -84,6 +84,9 @@ const ComicPage = async (props: any) => {
         body: {
           idAccount: session?.userInfo?.id,
         },
+        headers: {
+          Authorization: `Bearer ${session?.accessToken}`,
+        },
         nextOption: {
           next: { tags: ["subscriptions-by-user"] },
         },

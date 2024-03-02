@@ -20,9 +20,12 @@ const TheoDoiPage = async () => {
       body: {
         idAccount: session?.userInfo?.id,
       },
-      // nextOption: {
-      //   next: { tags: ["subscriptions-by-user"] },
-      // },
+      headers: {
+        Authorization: `Bearer ${session?.accessToken}`,
+      },
+      nextOption: {
+        next: { tags: ["subscriptions-by-user"] },
+      },
     });
   }
 

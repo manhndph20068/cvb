@@ -19,6 +19,7 @@ export default async function IndexPage({
   searchParams?: { [key: string]: string | string[] | undefined };
 }) {
   const session = await getServerSession(authOptions);
+  console.log("session", session);
 
   const RecommendComics = await sendRequest({
     url: `${process.env.COMICS_API_URL}/recommend-comics`,

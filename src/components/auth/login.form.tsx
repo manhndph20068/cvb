@@ -89,7 +89,7 @@ const LoginForm = () => {
             <Button
               type="text"
               className="login-form-github"
-              icon={<GithubOutlined style={{}} />}
+              icon={<GithubOutlined />}
               onClick={() => {
                 signIn("github");
               }}
@@ -98,9 +98,11 @@ const LoginForm = () => {
             </Button>
             <Button
               type="text"
-              htmlType="submit"
               className="login-form-google"
-              icon={<GoogleOutlined style={{}} />}
+              icon={<GoogleOutlined />}
+              onClick={() => {
+                signIn("google");
+              }}
             >
               Login with Google
             </Button>
