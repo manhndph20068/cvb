@@ -26,7 +26,7 @@ const Top = (props: IProps) => {
                 width: "35%",
                 height: "90px",
                 display: "flex",
-                alignItems: "center", // Vertical centering
+                alignItems: "center",
                 justifyContent: "space-evenly",
               }}
             >
@@ -38,10 +38,9 @@ const Top = (props: IProps) => {
                   position: "relative",
                   height: "100%",
                   width: "75px",
-                  // textAlign: "center",
                 }}
               >
-                <Link href={"#"}>
+                <Link href={`/truyen-tranh/${item?.id}`}>
                   <Image
                     style={{
                       objectFit: "cover",
@@ -75,7 +74,7 @@ const Top = (props: IProps) => {
                     whiteSpace: "nowrap",
                   }}
                 >
-                  <Link href={"#"}> {item?.title}</Link>
+                  <Link href={`/truyen-tranh/${item?.id}`}> {item?.title}</Link>
                 </div>
               </div>
               <div
@@ -92,7 +91,11 @@ const Top = (props: IProps) => {
                     fontSize: "15px",
                   }}
                 >
-                  <Link href={"#"}>{item?.last_chapter?.name}</Link>
+                  <Link
+                    href={`/truyen-tranh/${item?.id}/${item?.last_chapter?.id}`}
+                  >
+                    {item?.last_chapter?.name}
+                  </Link>
                 </div>
                 <div
                   style={{

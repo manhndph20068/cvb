@@ -116,8 +116,16 @@ const MenuDrawer = (props: IProps) => {
             <Divider />
           </>
         )}
-        <p>Truyên Mới</p>
-        <p>Truyện Full</p>
+        <Link href={"/truyen-moi"}>
+          {" "}
+          <p>Truyên Mới</p>
+        </Link>
+
+        <Link href={"/truyen-full"}>
+          {" "}
+          <p>Truyện Full</p>
+        </Link>
+
         <Link href={"/theo-doi"} onClick={() => onClose()}>
           <p>Theo dõi</p>
         </Link>
