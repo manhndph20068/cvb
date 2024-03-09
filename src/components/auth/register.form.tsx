@@ -11,7 +11,7 @@ const RegisterForm = () => {
   const router = useRouter();
   const onFinish = async (values: { email: string; password: string }) => {
     const res = await sendRequest<any>({
-      url: `${process.env.NEXT_PUBLIC_BE_URL}/api/v1/auth/signUpCredential`,
+      url: `${process.env.NEXT_PUBLIC_BE_URL}/api-be/v1/auth/signUpCredential`,
       method: "POST",
       body: {
         email: values.email,

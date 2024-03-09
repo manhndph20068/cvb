@@ -18,7 +18,10 @@ export default async function RootLayout({
   return (
     <>
       <AppHeader resGenres={resGenres} />
-      <div style={{ minHeight: "100vh" }}> {children}</div>
+      <div style={{ minHeight: "100vh", marginBottom: "20px" }}>
+        {" "}
+        {children}
+      </div>
       <AppFooter />
     </>
   );

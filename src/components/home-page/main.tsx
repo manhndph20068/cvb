@@ -7,7 +7,7 @@ import VisitedComponent from "./visited/visited.component";
 import { useSelector } from "@/src/lib/redux";
 
 interface IProps {
-  RecommendComics: any;
+  RecommendComics: ICommics[];
   RecentUpdateComicsData: IModelPaginate<ICommics>;
   DataTopOfMonth: ICommics[];
   DataTopOfWeek: ICommics[];

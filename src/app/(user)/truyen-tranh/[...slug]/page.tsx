@@ -79,7 +79,7 @@ const ComicPage = async (props: any) => {
 
     if (session) {
       resSubscriptions = await sendRequest<IBackendResponse<Subscriptions[]>>({
-        url: `${process.env.NEXT_PUBLIC_BE_URL}/api/v1/subscriptions/findSubscriptionsByAccountId`,
+        url: `${process.env.BE_URL}/api-be/v1/subscriptions/findSubscriptionsByAccountId`,
         method: "POST",
         body: {
           idAccount: session?.userInfo?.id,
@@ -111,7 +111,7 @@ const ComicPage = async (props: any) => {
     });
 
     return (
-      <div style={{ marginTop: "20px" }}>
+      <div>
         <MainChapterOfComic
           chapterId={chapter_id}
           comicId={comic_id}

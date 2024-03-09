@@ -21,8 +21,8 @@ export default async function IndexPage({
   const session = await getServerSession(authOptions);
   console.log("session", session);
 
-  const RecommendComics = await sendRequest({
-    url: `${process.env.COMICS_API_URL}/recommend-comics`,
+  const RecommendComics = await sendRequest<IModelPaginate<ICommics>>({
+    url: `${process.env.COMICS_API_URL}/trending-comics`,
     method: "GET",
     nextOption: { revalidate: revalidate },
   });
@@ -58,7 +58,7 @@ export default async function IndexPage({
   // console.log("DataTopOfMonth", RecentUpdateComicsData);
   return (
     <Main
-      RecommendComics={RecommendComics}
+      RecommendComics={RecommendComics?.comics}
       RecentUpdateComicsData={RecentUpdateComicsData}
       DataTopOfMonth={DataTopOfMonth?.comics.slice(0, 7)}
       DataTopOfWeek={DataTopOfWeek?.comics.slice(0, 7)}

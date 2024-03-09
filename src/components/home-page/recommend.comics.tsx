@@ -10,7 +10,7 @@ import "./recommend.comic.scss";
 import Link from "next/link";
 
 interface IProps {
-  RecommendComics: any;
+  RecommendComics: ICommics[];
 }
 
 const NextArrow = (props: any) => {
@@ -62,6 +62,7 @@ const PrevArrow = (props: any) => {
 };
 
 const RecommnendComics = (props: IProps) => {
+  const { RecommendComics } = props;
   const settings: Settings = {
     dots: false,
     infinite: true,
@@ -146,7 +147,7 @@ const RecommnendComics = (props: IProps) => {
         <h2 className="title-comic">Truyện Đề Cử</h2>
       </div>
       <Slider {...settings}>
-        {props.RecommendComics?.map((item: any) => {
+        {RecommendComics?.map((item) => {
           return (
             <div
               className="content-comic"
@@ -195,7 +196,7 @@ const RecommnendComics = (props: IProps) => {
                   />
                 </div>
               </Link>
-              <Link href={`/truyen-tranh/${item.id}`}>
+              <Link href={`/truyen-tranh/${item?.id}`}>
                 <div
                   style={{
                     width: "170px",
@@ -211,9 +212,7 @@ const RecommnendComics = (props: IProps) => {
                   {item.title}
                 </div>
               </Link>
-              <Link
-                href={`/truyen-tranh/${item.id}/${item?.lastest_chapter.id}`}
-              >
+              <Link href={`/truyen-tranh/${item.id}/${item?.last_chapter?.id}`}>
                 <div
                   style={{
                     width: "170px",
@@ -224,7 +223,7 @@ const RecommnendComics = (props: IProps) => {
                     marginTop: "8px",
                   }}
                 >
-                  {item.lastest_chapter.name}
+                  {item?.last_chapter?.name}
                 </div>
               </Link>
             </div>

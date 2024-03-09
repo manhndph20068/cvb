@@ -8,7 +8,7 @@ import dayjs from "dayjs";
 
 async function refreshAccessToken(token: JWT) {
   const res = await sendRequest<IBackendResponse<JWT>>({
-    url: `${process.env.NEXT_PUBLIC_BE_URL}/api/v1/auth/refreshToken`,
+    url: `${process.env.NEXTAUTH_URL_INTERNAL}/api-be/v1/auth/refreshToken`,
     method: "POST",
     body: { token: token?.refreshToken, type: token?.type },
   });
@@ -52,7 +52,7 @@ export const authOptions: AuthOptions = {
       },
       async authorize(credentials, req) {
         const res = await sendRequest<IBackendResponse<JWT>>({
-          url: `${process.env.NEXT_PUBLIC_BE_URL}/api/v1/auth/loginWithCredential`,
+          url: `${process.env.NEXTAUTH_URL_INTERNAL}/api-be/v1/auth/loginWithCredential`,
           method: "POST",
           body: {
             email: credentials?.username,
@@ -85,7 +85,7 @@ export const authOptions: AuthOptions = {
     async jwt({ token, user, trigger, account, profile }) {
       if (trigger === "signIn" && account?.provider !== "credentials") {
         const res = await sendRequest<IBackendResponse<JWT>>({
-          url: `${process.env.NEXT_PUBLIC_BE_URL}/api/v1/auth/loginWithSocial`,
+          url: `${process.env.NEXTAUTH_URL_INTERNAL}/api-be/v1/auth/loginWithSocial`,
           method: "POST",
           useCredentials: true,
           body: {

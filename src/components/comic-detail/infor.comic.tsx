@@ -71,7 +71,7 @@ const InforComic = (props: IProps) => {
     }
     if (session) {
       const res = await sendRequest<IBackendResponse<any>>({
-        url: `${process.env.NEXT_PUBLIC_BE_URL}/api/v1/subscriptions/saveSubscription`,
+        url: `${process.env.NEXT_PUBLIC_BE_URL}/api-be/v1/subscriptions/saveSubscription`,
         method: "POST",
         headers: {
           Authorization: `Bearer ${session?.accessToken}`,
@@ -104,7 +104,7 @@ const InforComic = (props: IProps) => {
   const handleUnFollow = async () => {
     if (session) {
       const res = await sendRequest<IBackendResponse<any>>({
-        url: `${process.env.NEXT_PUBLIC_BE_URL}/api/v1/subscriptions/deleteSubscription`,
+        url: `${process.env.NEXT_PUBLIC_BE_URL}/api-be/v1/subscriptions/deleteSubscription`,
         method: "POST",
         headers: {
           Authorization: `Bearer ${session?.accessToken}`,

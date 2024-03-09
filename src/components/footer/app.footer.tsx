@@ -3,7 +3,6 @@ const AppFooter = () => {
   return (
     <div
       style={{
-        marginTop: "25px",
         backgroundColor: "#222222",
         display: "flex",
         flexDirection: "column",

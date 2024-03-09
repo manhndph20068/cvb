@@ -6,11 +6,10 @@ import {
   ProfileTwoTone,
   RightOutlined,
 } from "@ant-design/icons";
-import { Affix, Breadcrumb, Button, Flex, Select } from "antd";
-import { setServers } from "dns";
+import { Affix, Breadcrumb, Button, ConfigProvider, Flex, Select } from "antd";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 
 interface IProps {
   ChapterComic: IChapter;
@@ -18,6 +17,13 @@ interface IProps {
   chapterId: number;
   setCurrentServer: (value: number) => void;
   currentServer: number;
+  listChapter: Array<{ value: string; label: string }>;
+  currentChapter: string;
+  nextButton: boolean;
+  prevButton: boolean;
+  handleNextChapter: () => void;
+  handlePrevChapter: () => void;
+  hide: boolean;
 }
 
 const CtrlAffixed: React.CSSProperties = {
@@ -31,15 +37,22 @@ const CtrlAffixed: React.CSSProperties = {
 };
 
 const Title = (props: IProps) => {
-  const { ChapterComic, comicId, chapterId, setCurrentServer, currentServer } =
-    props;
-  const [listChapter, setListChapter] = useState<
-    Array<{ value: string; label: string }>
-  >([]);
-  const [currentChapter, setCurrentChapter] = useState<string>("0");
+  const {
+    ChapterComic,
+    comicId,
+    chapterId,
+    setCurrentServer,
+    currentServer,
+    listChapter,
+    currentChapter,
+    nextButton,
+    prevButton,
+    handleNextChapter,
+    handlePrevChapter,
+    hide,
+  } = props;
+
   const [affixCtrl, setAffixCtrl] = useState<boolean>(false);
-  const [nextButton, setNextButton] = useState<boolean>(true);
-  const [prevButton, setPrevButton] = useState<boolean>(true);
 
   const selectRef = useRef(null);
   const router = useRouter();
@@ -48,101 +61,110 @@ const Title = (props: IProps) => {
     router.push(`/truyen-tranh/${comicId}/${+e}`);
   };
 
-  const handleNextChapter = () => {
-    const index = listChapter.findIndex(
-      (item) => item.value === currentChapter
+  const ControlElement = () => {
+    return (
+      <Flex gap="small" wrap="wrap">
+        <Button
+          style={{
+            backgroundColor: "tranparent",
+          }}
+          onClick={() => {
+            router.push(`/`);
+          }}
+          icon={<HomeTwoTone />}
+        />
+
+        <Button
+          type={prevButton ? "primary" : "default"}
+          icon={<LeftOutlined />}
+          disabled={!prevButton}
+          onClick={
+            prevButton
+              ? () => {
+                  handlePrevChapter();
+                }
+              : () => {
+                  alert("đã hết");
+                }
+          }
+        />
+        <Select
+          ref={selectRef}
+          value={currentChapter}
+          style={{ width: 180 }}
+          onChange={(e) => handleChange(e)}
+          options={listChapter}
+          getPopupContainer={(trigger) => trigger.parentElement}
+        />
+        <Button
+          type={nextButton ? "primary" : "default"}
+          icon={<RightOutlined />}
+          disabled={!nextButton}
+          onClick={
+            nextButton ? () => handleNextChapter() : () => alert("đã hết")
+          }
+        />
+        <Button
+          style={{
+            backgroundColor: "tranparent",
+          }}
+          onClick={() => {
+            router.push(`/truyen-tranh/${comicId}`);
+          }}
+          icon={<ProfileTwoTone />}
+        />
+      </Flex>
     );
-    if (index <= 0) {
-      alert("đã hết");
-    }
-    if (index <= listChapter.length - 1 && index > 0) {
-      router.push(`/truyen-tranh/${comicId}/${+listChapter[index - 1].value}`);
-    }
   };
-
-  const handlePrevChapter = () => {
-    const index = listChapter.findIndex(
-      (item) => item.value === currentChapter
-    );
-    console.log("index", listChapter.length - 1, index);
-    if (index >= listChapter.length - 1) {
-      alert("đã hết");
-    }
-    if (index < listChapter.length - 1 && index < listChapter.length - 1) {
-      router.push(`/truyen-tranh/${comicId}/${+listChapter[index + 1].value}`);
-    }
-  };
-
-  useEffect(() => {
-    if (ChapterComic?.chapters) {
-      const listChapter: Array<{ value: string; label: string }> =
-        ChapterComic?.chapters.map((item) => {
-          return {
-            value: item.id.toString(),
-            label: item.name,
-          };
-        });
-      setListChapter(listChapter);
-    }
-    if (chapterId && ChapterComic?.chapters) {
-      const nameChapter = ChapterComic?.chapters.find(
-        (item) => +item.id === +chapterId
-      );
-      setCurrentChapter(nameChapter?.id.toString()!);
-    }
-  }, [ChapterComic]);
-
-  useEffect(() => {
-    const index = listChapter.findIndex(
-      (item) => item.value === currentChapter
-    );
-    if (index <= 0) {
-      setNextButton(false);
-    }
-    if (index > 0) {
-      setNextButton(true);
-    }
-    if (index < listChapter.length - 1) {
-      setPrevButton(true);
-    }
-    if (index >= listChapter.length - 1) {
-      setPrevButton(false);
-    }
-  }, [currentChapter]);
 
   return (
     <div className="header" style={{ padding: "7px" }}>
       <div className="breadcrumb">
-        <Breadcrumb
-          style={{ fontSize: "16px" }}
-          items={[
-            {
-              title: (
-                <>
-                  <Link href={"/"} prefetch={false}>
-                    <HomeOutlined />
-                  </Link>
-                </>
-              ),
+        <ConfigProvider
+          theme={{
+            components: {
+              Breadcrumb: {
+                colorText: "white",
+                itemColor: "white",
+                lastItemColor: "white",
+                linkColor: "white",
+                linkHoverColor: "white",
+                separatorColor: "white",
+              },
             },
-            {
-              title: (
-                <>
-                  <Link href={`/truyen-tranh/${comicId}`} prefetch={false}>
-                    <span>{ChapterComic?.comic_name}</span>
-                  </Link>
-                </>
-              ),
-            },
-            {
-              title: (
-                <>
-                  <span>{ChapterComic?.chapter_name}</span>
-                </>
-              ),
-            },
-          ]}
-        />
+          }}
+        >
+          <Breadcrumb
+            style={{ fontSize: "16px", color: "white" }}
+            items={[
+              {
+                title: (
+                  <>
+                    <Link href={"/"} prefetch={false}>
+                      <HomeOutlined />
+                    </Link>
+                  </>
+                ),
+              },
+              {
+                title: (
+                  <>
+                    <Link href={`/truyen-tranh/${comicId}`} prefetch={false}>
+                      <span>{ChapterComic?.comic_name}</span>
+                    </Link>
+                  </>
+                ),
+              },
+              {
+                title: (
+                  <>
+                    <span>{ChapterComic?.chapter_name}</span>
+                  </>
+                ),
+              },
+            ]}
+          />
+        </ConfigProvider>
       </div>
       <div
         style={{ display: "flex", flexDirection: "row", alignItems: "center" }}
@@ -186,6 +208,26 @@ const Title = (props: IProps) => {
         </Button>
       </div>
       <div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            padding: "5px",
+            background: "#E4E4E4",
+          }}
+        >
+          {/* <div
+            className="ctrl-chapter"
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              padding: "5px",
+              background: "#E4E4E4",
+            }}
+          ></div> */}
+          <ControlElement />
+        </div>
+
         <Affix
           onChange={(affixed) => {
             setAffixCtrl(affixed!);
@@ -194,67 +236,14 @@ const Title = (props: IProps) => {
           <div
             className="ctrl-chapter"
             style={
-              affixCtrl
+              affixCtrl && hide
                 ? CtrlAffixed
                 : {
-                    display: "flex",
-                    justifyContent: "center",
-                    padding: "5px",
-                    background: "#E4E4E4",
+                    display: "none",
                   }
             }
           >
-            <Flex gap="small" wrap="wrap">
-              <Button
-                style={{
-                  backgroundColor: "tranparent",
-                }}
-                onClick={() => {
-                  router.push(`/`);
-                }}
-                icon={<HomeTwoTone />}
-              />
-
-              <Button
-                type={prevButton ? "primary" : "default"}
-                icon={<LeftOutlined />}
-                disabled={!prevButton}
-                onClick={
-                  prevButton
-                    ? () => {
-                        handlePrevChapter();
-                      }
-                    : () => {
-                        alert("đã hết");
-                      }
-                }
-              />
-              <Select
-                ref={selectRef}
-                value={currentChapter}
-                style={{ width: 180 }}
-                onChange={(e) => handleChange(e)}
-                options={listChapter}
-                getPopupContainer={(trigger) => trigger.parentElement}
-              />
-              <Button
-                type={nextButton ? "primary" : "default"}
-                icon={<RightOutlined />}
-                disabled={!nextButton}
-                onClick={
-                  nextButton ? () => handleNextChapter() : () => alert("đã hết")
-                }
-              />
-              <Button
-                style={{
-                  backgroundColor: "tranparent",
-                }}
-                onClick={() => {
-                  router.push(`/truyen-tranh/${comicId}`);
-                }}
-                icon={<ProfileTwoTone />}
-              />
-            </Flex>
+            <ControlElement />
           </div>
         </Affix>
       </div>
