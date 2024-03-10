@@ -23,7 +23,6 @@ const LoginForm = () => {
     if (!res?.error) {
       router.push("/");
     } else {
-      console.log(res);
       message.error("Email hoặc mật khẩu không đúng!");
     }
   };

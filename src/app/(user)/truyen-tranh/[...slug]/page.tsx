@@ -93,7 +93,6 @@ const ComicPage = async (props: any) => {
         // nextOption: { cache: "no-store" },
       });
     }
-    console.log("resSubscriptions", resSubscriptions);
 
     return (
       <div style={{ marginTop: "20px" }}>

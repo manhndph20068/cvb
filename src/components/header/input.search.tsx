@@ -23,20 +23,14 @@ const fetchData = (value: string, callback: Function) => {
     axios(`${process.env.NEXT_PUBLIC_COMICS_API_URL}/search?${str}`)
       .then((response) => response.data)
       .then((data: IModelPaginate<ICommics>) => {
-        console.log("data", data);
         if (currentValue === value) {
           const result = data.comics;
-          const processedData = result.map(
-            (item: any) => (
-              console.log("item", item),
-              {
-                id: item.id,
-                title: item.title,
-                last_chapter: item.last_chapter.name,
-                image: item.thumbnail,
-              }
-            )
-          );
+          const processedData = result.map((item: any) => ({
+            id: item.id,
+            title: item.title,
+            last_chapter: item.last_chapter.name,
+            image: item.thumbnail,
+          }));
           callback(processedData);
         }
       })

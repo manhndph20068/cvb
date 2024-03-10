@@ -46,7 +46,6 @@ const MainChapterOfComic = (props: IProps) => {
   }, [scrollDirection]);
 
   if (ChapterComic?.chapter_name || ChapterComic?.chapters?.length > 0) {
-    console.log("add", ChapterComic?.chapter_name);
     dispatch(
       doAddAction({
         id: comicId,
@@ -113,7 +112,6 @@ const MainChapterOfComic = (props: IProps) => {
     const index = listChapter.findIndex(
       (item) => item.value === currentChapter
     );
-    console.log("index", listChapter.length - 1, index);
     if (index >= listChapter.length - 1) {
       alert("đã hết");
     }

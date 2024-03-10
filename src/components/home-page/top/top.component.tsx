@@ -30,9 +30,7 @@ const TopComponent = (props: IProps) => {
     },
   ];
 
-  const onChange = (key: string) => {
-    console.log(key);
-  };
+  const onChange = (key: string) => {};
 
   return (
     <>

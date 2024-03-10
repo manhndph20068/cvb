@@ -28,6 +28,7 @@ const Content = (props: IProps) => {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          width: "100%",
         }}
       >
         {ChapterComic?.images?.map((item) => {
@@ -35,9 +36,10 @@ const Content = (props: IProps) => {
             <Image
               key={item.page}
               style={{ width: "100%", height: "auto", margin: 0, padding: 0 }}
-              width={0}
-              height={0}
+              width={100}
+              height={100}
               sizes="100vw"
+              priority
               src={currentServer === 1 ? item.src : item.backup_src}
               alt={item.src}
             />
@@ -55,7 +57,7 @@ const Content = (props: IProps) => {
         }}
       >
         <Button
-          type={prevButton ? "primary" : "default"}
+          type={prevButton ? "primary" : "text"}
           icon={<LeftOutlined />}
           disabled={!prevButton}
           onClick={
@@ -71,7 +73,7 @@ const Content = (props: IProps) => {
           Chapter trước
         </Button>
         <Button
-          type={nextButton ? "primary" : "default"}
+          type={nextButton ? "primary" : "text"}
           icon={<RightOutlined />}
           disabled={!nextButton}
           onClick={

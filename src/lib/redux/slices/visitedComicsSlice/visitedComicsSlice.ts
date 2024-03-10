@@ -13,7 +13,6 @@ export const visitedComicsState = createSlice({
     doAddAction: (state, action: PayloadAction<VisitedComicsPayload>) => {
       const item = action.payload;
       const index = state.comics.findIndex((i) => i.id === item.id);
-      console.log("index", index);
       if (index === -1) {
         state.comics.unshift({
           id: item.id,

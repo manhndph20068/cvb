@@ -83,7 +83,7 @@ const InforComic = (props: IProps) => {
           image: DetailInforComic?.thumbnail,
         },
       });
-      console.log(res);
+
       if (res.statusCode === 0) {
         await sendRequest({
           url: `/api/revalidate`,
