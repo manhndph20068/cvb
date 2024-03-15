@@ -3,7 +3,31 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   margin: 0 auto;
-  font-family: system-ui, sans-serif;
+  font-family: Tahoma;
+}
+
+@media screen and (max-width: 767px) {
+  select:active,
+  input:active,
+  textarea:active {
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  select,
+  input,
+  textarea {
+    font-size: 16px;
+  }
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  select:focus,
+  textarea:focus,
+  input:focus {
+    font-size: 16px;
+  }
 }
 
 .custom-loader {

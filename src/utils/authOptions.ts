@@ -84,6 +84,10 @@ export const authOptions: AuthOptions = {
   callbacks: {
     async jwt({ token, user, trigger, account, profile }) {
       if (trigger === "signIn" && account?.provider !== "credentials") {
+        console.log(
+          ">>> loginWithSocial",
+          `${process.env.NEXTAUTH_URL_INTERNAL}/api-be/v1/auth/loginWithSocial`
+        );
         const res = await sendRequest<IBackendResponse<JWT>>({
           url: `${process.env.NEXTAUTH_URL_INTERNAL}/api-be/v1/auth/loginWithSocial`,
           method: "POST",
@@ -93,6 +97,7 @@ export const authOptions: AuthOptions = {
             type: account?.provider?.toLocaleUpperCase(),
           },
         });
+        console.log(">>> loginWithSocial", res);
         if (res.data) {
           token.accessToken = res.data.accessToken;
           token.refreshToken = res.data.refreshToken;

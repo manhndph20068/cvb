@@ -10,6 +10,7 @@ import { Affix, Breadcrumb, Button, ConfigProvider, Flex, Select } from "antd";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useRef, useState } from "react";
+import "./title.scss";
 
 interface IProps {
   ChapterComic: IChapter;
@@ -56,9 +57,10 @@ const Title = (props: IProps) => {
 
   const selectRef = useRef(null);
   const router = useRouter();
+  console.log("chapterId", chapterId);
 
   const handleChange = (e: any) => {
-    router.push(`/truyen-tranh/${comicId}/${+e}`);
+    router.push(`/truyen-tranh/${comicId}/${+e.target.value}`);
   };
 
   const ControlElement = () => {
@@ -88,14 +90,36 @@ const Title = (props: IProps) => {
                 }
           }
         />
-        <Select
+        {/* <Select
           ref={selectRef}
           value={currentChapter}
-          style={{ width: 180 }}
+          autoFocus={false}
+          className="disableHoverFocus"
           onChange={(e) => handleChange(e)}
+          onClick={(e) => {
+            e.preventDefault();
+          }}
           options={listChapter}
-          getPopupContainer={(trigger) => trigger.parentElement}
-        />
+          // getPopupContainer={(trigger) => trigger.parentElement}
+        /> */}
+        <select
+          name="chapters"
+          id="chapters"
+          onChange={(e) => handleChange(e)}
+          className="disableHoverFocus"
+        >
+          {listChapter.map((item) => {
+            return (
+              <option
+                key={+item.value}
+                value={item.value}
+                selected={+chapterId === +item.value}
+              >
+                {item.label}
+              </option>
+            );
+          })}
+        </select>
         <Button
           type={nextButton ? "primary" : "default"}
           icon={<RightOutlined />}

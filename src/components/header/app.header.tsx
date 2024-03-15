@@ -15,15 +15,12 @@ import MenuHeader from "./menu.header";
 import Link from "next/link";
 import { useSession, signIn, signOut } from "next-auth/react";
 import MenuDrawer from "./menu.drawer";
+import { sendRequest } from "@/src/utils/api";
 
-interface IProps {
-  resGenres: IGenre[];
-}
-
-const AppHeader = (props: IProps) => {
-  const { resGenres } = props;
+const AppHeader = () => {
   const [openDrawer, setOpenDrawer] = useState<boolean>(false);
   const [openSearch, setOpenSearch] = useState(false);
+  const [genres, setGenres] = useState<IGenre[] | []>([]);
   const pathname = usePathname();
   const { data: session } = useSession();
   const usernameRef = useRef<HTMLDivElement>(null);
@@ -58,6 +55,23 @@ const AppHeader = (props: IProps) => {
       key: "3",
     },
   ];
+
+  const fetchGenres = async () => {
+    const res = await sendRequest<IGenre[]>({
+      url: `${process.env.NEXT_PUBLIC_COMICS_API_URL}/genres`,
+      method: "GET",
+    });
+    console.log("sdf", res);
+    if (res && res.length > 0) {
+      setGenres(res);
+    } else {
+      setTimeout(fetchGenres, 1000);
+    }
+  };
+
+  useEffect(() => {
+    fetchGenres();
+  }, []);
 
   return (
     <>
@@ -115,7 +129,7 @@ const AppHeader = (props: IProps) => {
               </Link>
             </Col>
             <Col md={12} sm={0} xs={0}>
-              <MenuHeader resGenres={resGenres} />
+              <MenuHeader resGenres={genres} />
             </Col>
 
             <Col md={7} sm={0} xs={0}>
@@ -232,7 +246,7 @@ const AppHeader = (props: IProps) => {
       <MenuDrawer
         openDrawer={openDrawer}
         setOpenDrawer={setOpenDrawer}
-        resGenres={resGenres}
+        resGenres={genres}
         items={items}
       />
     </>

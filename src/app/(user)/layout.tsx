@@ -4,24 +4,16 @@ import AppHeader from "../../components/header/app.header";
 import { sendRequest } from "../../utils/api";
 import AppFooter from "@/src/components/footer/app.footer";
 
+export const revalidate = 20;
 export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const resGenres = await sendRequest<IGenre[]>({
-    url: `${process.env.COMICS_API_URL}/genres`,
-    method: "GET",
-    nextOption: { cache: "no-store" },
-  });
-
   return (
     <>
-      <AppHeader resGenres={resGenres} />
-      <div style={{ minHeight: "100vh", marginBottom: "20px" }}>
-        {" "}
-        {children}
-      </div>
+      <AppHeader />
+      <div style={{ minHeight: "100vh", marginBottom: "20px" }}>{children}</div>
       <AppFooter />
     </>
   );
